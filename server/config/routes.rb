@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :events
       resources :users, only: [:create, :index, :show, :update]
+      resources :locations
     end
   end
 end

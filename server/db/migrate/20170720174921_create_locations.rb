@@ -5,11 +5,11 @@ class CreateLocations < ActiveRecord::Migration[5.1]
       t.string :city
       t.string :state
       t.string :country
-      t.integer :zip
+      t.string :zip
       t.string :street
-      t.integer :latitude
-      t.integer :longitude
-
+      t.string :latitude
+      t.string :longitude
+      t.references :event
       t.timestamps
     end
   end

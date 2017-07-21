@@ -18,7 +18,6 @@ class MapComponent extends React.Component {
         <MapAvatars
           lat={40.705163}
           lng={-74.014049}
-
         />
       </GoogleMapReact>
     );

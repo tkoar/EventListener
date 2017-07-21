@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 20170720214353) do
 
   create_table "events", force: :cascade do |t|
     t.string "description"
-    t.integer "fb_event_id"
+    t.string "fb_event_id"
     t.string "name"
     t.string "last_action"
     t.string "rsvp_status"
@@ -45,12 +45,14 @@ ActiveRecord::Schema.define(version: 20170720214353) do
     t.string "city"
     t.string "state"
     t.string "country"
-    t.integer "zip"
+    t.string "zip"
     t.string "street"
-    t.integer "latitude"
-    t.integer "longitude"
+    t.string "latitude"
+    t.string "longitude"
+    t.bigint "event_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_locations_on_event_id"
   end
 
   create_table "users", force: :cascade do |t|

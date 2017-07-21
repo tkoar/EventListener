@@ -7,22 +7,31 @@ module Api
       end
 
       def create
-        user = User.create(name: user_params[:name], email: user_params[:email], userID: user_params[:userID], accessToken: user_params[:accessToken])
-        user_events = params[:user][:events][:data].each do |event|
-          location = Location.new(event["place"]["location"])
-          byebug
-          location.save
-          event = Event.new({description: event['description'], fb_event_id: event['id'], name: event['name'], rsvp_status: event['rsvp_status'], start_time: event['start_time'], last_action: "added an event:"})
-          event.locations << location
-          event.save
+        if User.find_by(userID: user_params[:userID])
+          @user = User.find_by(userID: user_params[:userID])
+        else
+          @user = User.create(name: user_params[:name], email: user_params[:email], userID: user_params[:userID], accessToken: user_params[:accessToken])
         end
-        user.events << user_events
+        user_events = params[:user][:events][:data].each do |event|
+          location = Location.new({name: event['place']['name'], city: event['place']['location']['city'], country: event['place']['location']['country'], latitude: event['place']['location']['latitude'], longitude: event['place']['location']['longitude'], state: event['place']['location']['state'], street: event['place']['location']['street'], zip: event['place']['location']['zip']})
+
+        if Event.find_by(fb_event_id: event['id'])
+          event = Event.find_by(fb_event_id: event['id'])
+        else
+          event = Event.new({description: event['description'], fb_event_id: event['id'], name: event['name'], rsvp_status: event['rsvp_status'], start_time: event['start_time'], last_action: "added an event:"})
+          event.save
+          event.locations << location
+          location.save
+        end
+          @user.events << event unless @user.events.detect { |el| el.fb_event_id === event.fb_event_id}
+
+        end
       end
 
       private
 
       def user_params
-        params.require(:user).permit(:user)
+        params.require(:user).permit(:accessToken, :email, :events, :expiresIn, :id, :name, :picture, :signedRequest, :userID)
       end
     end
   end
