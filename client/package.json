@@ -3,11 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "google-map-react": "^0.24.0",
     "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "react-dom": "^15.6.1",
+    "react-facebook-login": "^3.6.2",
+    "react-redux": "^5.0.5",
+    "react-router-dom": "^4.1.2",
+    "redux-thunk": "^2.2.0",
+    "semantic-ui-react": "^0.71.1"
   },
   "devDependencies": {
-    "react-scripts": "1.0.10"
+    "react-scripts": "1.0.10",
+    "semantic-ui": "^2.2.11"
   },
   "scripts": {
     "start": "react-scripts start",
