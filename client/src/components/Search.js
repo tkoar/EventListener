@@ -1,16 +1,17 @@
 import React, { Component } from 'react'
 import { Search, Grid, Header } from 'semantic-ui-react'
 
-const source = {
-  title: 'ABCDEFGHIJKLMNOP',
-  description: "GREAT",
-  image: 'https://s-media-cache-ak0.pinimg.com/originals/1b/62/4e/1b624e3f7915cf91c6dfa2219da247a5.png',
-  price: 20
-}
 
 export default class SearchExampleStandard extends Component {
+  state = {
+    results: []
+  }
+
   componentWillMount() {
-    this.resetComponent()
+    // this.resetComponent()
+    fetch('http://localhost:3000/api/v1/users')
+    .then(res => res.json())
+    .then(res => this.setState({results: res}))
   }
 
   resetComponent = () => this.setState({ isLoading: false, results: [], value: '' })
@@ -27,7 +28,6 @@ export default class SearchExampleStandard extends Component {
 
       this.setState({
         isLoading: false,
-        results: source,
       })
     }, 500)
   }

@@ -1,18 +1,23 @@
 import React, { Component } from 'react'
+import { Switch, Route } from 'react-router-dom'
 import connect from 'react-redux'
-import { Switch, Route } from 'react-router'
 import MapAvatars from './components/MapAvatars'
 import Login from './containers/Login'
-import FacebookLogin from 'react-facebook-login';
+import EventContainer from './containers/EventContainer'
+import LoginComponent from './components/facebooklogin';
 import NavBar from './containers/NavBar'
+import Auth from './components/Auth/AuthAdapter'
+import * as actions from './actions'
 
 class App extends Component {
   constructor() {
     super()
 
     this.state = {
+      welcome: true,
       loggedIn: false
     }
+    actions.fetchEvents()
   }
 
   responseFacebook = (response) => {
@@ -26,59 +31,37 @@ class App extends Component {
       },
       body: JSON.stringify(createUser)
     })
-    this.setState({loggedIn: true})
+    // work in Auth Login here by sending over the userID
+    this.login(response.userID)
   }
 
+  login = (loginParams) => {
+      Auth.login(loginParams)
+      .then(user => {
+        if (!user.error) {
+          this.setState({
+            auth: {loggedIn: true, user: user}
+          })
+          localStorage.setItem("jwt", user.jwt)
+          console.log('loggedin')
+        }
+      })
+    }
+
+
+
+//sending down the prop as a callback is what causes the 2 second delay in the beginning when you refresh the app. to fix this move the fb login Component up here
   render() {
     return (
       <div className='parallax'>
-        {this.state.loggedIn ?
-          <NavBar /> :
-          <FacebookLogin
-          textButton="Login with Facebook"
-          //need to set appId to be an environment variable
-          appId="301958890275001"
-          autoLoad={true}
-          fields="name,email,picture,events"
-          scope="public_profile,user_events,rsvp_event,email"
-          callback={this.responseFacebook}
-          cssClass='button'
-          />
-        }
+        <Switch>
+          <Route exact path='/' render={() => <LoginComponent response={this.responseFacebook}/>} />
+          <Route path='/home' render={() => <NavBar />} />
+        </Switch>
+        <Route path='/events/:eventId' render={() => <EventContainer />} />
       </div>
     );
   }
 }
 
-export const fetchEvents = () => {
-  const events = fetch('http://localhost:3000/api/v1/events')
-
-}
-
 export default App;
-
-{/* Object {name: "Terrance Koar", email: "terrancekoar@gmail.com", picture: Object, events: Object, id: "10155705649364155"…}
-accessToken
-:
-"EAAESoUhkQLkBAP9dXWMZBGbNtDtDj6iFP8aZAlgpaFzK5LtmIcyW2xYCbW16niwec1OxdS54R8LurJdutrF9kHqx1L168mTrQ74MvSqNhhNJ1hTd0NmtYjMx6zFxIDqKfC4UYriyTZCBQvWK2VNi1UUJvRZCmzMvvcYM2qSh7zkNJ52HA6eDhuPYgrNDVl8ZD"
-email
-:
-"terrancekoar@gmail.com"
-events
-:
-Object
-data
-:
-Array(25)
-paging
-:
-Object
-__proto__
-:
-Object
-expiresIn : 6931
-id: "10155705649364155"
-name: "Terrance Koar"
-picture : Object
-signedRequest: "BxEjrRfPr1sIvV36rVv698KCNf20SOTjBjPsHDjf-Ik.eyJhbGdvcml0aG0iOiJITUFDLVNIQTI1NiIsImNvZGUiOiJBUURESkE0ajRnZkx3M3lvMzNKcEhVX25DYVlnRXJCdDR1Si1ac0ladWg4VmItUXZnRG9nREYwbTh4dmZCR2E2VjdQN1NJMVZHd1ZRS1RTX25mUS1WUGIteG5FT0NFZFVnNUxyalNHSjVaXzFsVks4TXEzNkk5Y2M1MkRWWG5tOGJCVXZQRmdYX3dyUDBaMUxjUzRab3UxOWs4MThNM2lVVjBOQ0ZPbFdrOWJhcF9xZVRRay1saXo0RVM2YkZIS0lRczA3X0NrUDRSd0tTSnQtZk1pOUFNLXhTcDlxOU1TdDVraW9wZ3pqcjBYTVFnUm5iWDhnd21ESmphbjZrckFUMFUyQUZCcWxhQi1IbGV3V0l4amJwejl6MDdrdUR2b2U3Tm0xSFRoTjMtcjZ6c1hMM0dMaUpweWswb3I2M0F4YnN0WUxvVW1yeHAzckJIanRCTlJZVEJoSyIsImlzc3VlZF9hdCI6MTUwMDU4NDY2OSwidXNlcl9pZCI6IjEwMTU1NzA1NjQ5MzY0MTU1In0"
-userID : "10155705649364155"*/}

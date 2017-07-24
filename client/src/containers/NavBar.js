@@ -36,7 +36,7 @@ class SidebarLeftPush extends Component {
           </Sidebar>
           <Sidebar.Pusher>
             <Segment basic>
-              <div style={{width: '80%', height: '700px'}}>
+              <div className="map-alignment">
                 <MapComponent>
                 </MapComponent>
               </div>
