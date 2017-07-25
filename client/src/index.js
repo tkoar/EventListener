@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import { createStore, applyMiddleware, compose } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import reduxThunk from 'redux-thunk'
 import './semantic/dist/semantic.min.css';
 import './App.css'
@@ -23,9 +22,7 @@ if (token) {
 }
 
 ReactDOM.render(
-  <BrowserRouter>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </BrowserRouter>, document.getElementById('root'));
+  <Provider store={store}>
+    <App />
+  </Provider>, document.getElementById('root'));
 registerServiceWorker();

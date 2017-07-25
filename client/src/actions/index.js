@@ -67,7 +67,7 @@ export function fetchMessage () {
   }
 }
 
-export function fetchEvents() {
+export function fetchEvents(dispatch) {
   return function(dispatch) {
     dispatch({type: 'LOADING_EVENTS'})
     return fetch('http://localhost:3000/api/v1/events')

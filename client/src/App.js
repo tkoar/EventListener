@@ -1,23 +1,44 @@
 import React, { Component } from 'react'
-import { Switch, Route } from 'react-router-dom'
-import connect from 'react-redux'
-import MapAvatars from './components/MapAvatars'
-import Login from './containers/Login'
+import { Switch, Route, BrowserRouter } from 'react-router-dom'
 import EventContainer from './containers/EventContainer'
 import LoginComponent from './components/facebooklogin';
 import NavBar from './containers/NavBar'
 import Auth from './components/Auth/AuthAdapter'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import * as actions from './actions'
+const {fetchEvents} = actions
 
 class App extends Component {
   constructor() {
     super()
 
     this.state = {
-      welcome: true,
-      loggedIn: false
+      loggedIn: false,
+      auth: {
+        loggedIn: false,
+        user: {}
+      }
     }
-    actions.fetchEvents()
+  }
+
+  componentWillMount() {
+    this.authorize()
+    this.props.fetchEvents()
+  }
+
+  authorize() {
+    Auth.currentUser().then(res => {
+      if (!res.error) {
+        console.log(res)
+        this.setState({
+          auth: {
+            loggedIn: true,
+            user: res
+          }
+        })
+      }
+    })
   }
 
   responseFacebook = (response) => {
@@ -31,7 +52,6 @@ class App extends Component {
       },
       body: JSON.stringify(createUser)
     })
-    // work in Auth Login here by sending over the userID
     this.login(response.userID)
   }
 
@@ -48,20 +68,34 @@ class App extends Component {
       })
     }
 
+    logout = () => {
 
+    localStorage.removeItem("jwt")
+    this.setState({
+      auth: {loggedIn: false, user: {}}
+    })
+    console.log(this.state.auth)
+  }
 
-//sending down the prop as a callback is what causes the 2 second delay in the beginning when you refresh the app. to fix this move the fb login Component up here
   render() {
     return (
-      <div className='parallax'>
-        <Switch>
+      <BrowserRouter>
+        <div className='parallax'>
           <Route exact path='/' render={() => <LoginComponent response={this.responseFacebook}/>} />
-          <Route path='/home' render={() => <NavBar />} />
-        </Switch>
-        <Route path='/events/:eventId' render={() => <EventContainer />} />
-      </div>
+          <Route path='/events' render={() => <NavBar logout={this.logout} />} />
+        </div>
+      </BrowserRouter>
+
     );
   }
 }
 
-export default App;
+function mapStateToProps (state) {
+  return state.events
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({fetchEvents: fetchEvents}, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)

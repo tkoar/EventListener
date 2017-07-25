@@ -1,6 +1,4 @@
 
-const baseUrl = "http://localhost:3000/api/v1"
-
 export default class AuthAdapter {
   static login = (loginParams) => {
     return (
@@ -15,7 +13,7 @@ export default class AuthAdapter {
 
   static currentUser = () => {
     return(
-      fetch(`${baseUrl}/me`,
+      fetch(`http://localhost:3000/api/v1/me`,
         {headers: headers()}
       )
       .then(resp => resp.json())

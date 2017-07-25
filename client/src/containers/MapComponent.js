@@ -1,7 +1,7 @@
 import React from 'react'
 import GoogleMapReact from 'google-map-react'
 import MapAvatars from '../components/MapAvatars'
-
+import { connect } from 'react-redux'
 
 class MapComponent extends React.Component {
   state = {
@@ -13,27 +13,33 @@ class MapComponent extends React.Component {
   };
 
   componentWillMount() {
-    fetch('http://localhost:3000/api/v1/events')
-    .then(res => res.json())
-    .then(res => this.setState({events: res}))
+    // fetch('http://localhost:3000/api/v1/events')
+    // .then(res => res.json())
+    // .then(res => this.setState({events: res}))
+    console.log(this.props)
   }
 
   render() {
-    // const avatars = this.state.events.map((el, i) => {
-    //   let location = el.locations[0]
-    //   return ( <MapAvatars key={i} {...el} {...location} lat={parseFloat(location.latitude)} lng={parseFloat(location.longitude)} /> )
-    // })
-    const key = 'AIzaSyDXPH2k0zPWnw86gLR7DKbWGN9873fp308'
+    const avatars = this.props.events.map((el, i) => {
+      let location = el.locations[0]
+      return ( <MapAvatars key={i} {...el} {...location} lat={parseFloat(location.latitude)} lng={parseFloat(location.longitude)} /> )
+    })
+    const key = process.env.GOOGLE_API
     return (
-       <GoogleMapReact
-        key={key}
-        defaultCenter={this.props.center}
-        defaultZoom={this.props.zoom}
-      >
-        {/* {avatars} */}
-      </GoogleMapReact>
+        <GoogleMapReact
+         key='AIzaSyDXPH2k0zPWnw86gLR7DKbWGN9873fp308'
+         defaultCenter={this.props.center}
+         defaultZoom={this.props.zoom}
+       >
+         {avatars}
+       </GoogleMapReact>
+
     );
   }
 }
 
-export default MapComponent
+function mapStateToProps (state) {
+  return state.events
+}
+
+export default connect(mapStateToProps)(MapComponent)

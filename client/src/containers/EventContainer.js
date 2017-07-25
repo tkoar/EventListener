@@ -3,29 +3,26 @@ import '../semantic/dist/semantic.css'
 import Loader from '../components/Loader'
 import {Card} from 'semantic-ui-react'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import * as actions from '../actions'
 
 class EventContainer extends React.Component {
 
-  componentWillMount() {
-    this.props.fetchEvents()
-  }
-
   render() {
-    console.log(this.props)
+    const event = this.props.events.filter(el => el.id.toString() === this.props.match.params.eventId)
+    const currentEvent = event[0]
+    console.log(currentEvent, this.props)
     return (
-      (this.props.loading && <Loader/>) ||
+      !currentEvent ? <Card><Card.Content><Loader active/></Card.Content></Card> :
       <Card>
-        <Card.Header>{this.props.title}</Card.Header>
+        <Card.Header>{currentEvent.name}</Card.Header>
         <Card.Content text>
           <Card.Description>
+            <p>RSVP Status: {currentEvent.rsvp_status}</p>
             <p>Description:</p>
-            <p>{this.props.description}</p>
+            <p>{currentEvent.description}</p>
           </Card.Description>
         </Card.Content>
      </Card>
-   )
+    )
   }
 
 }
@@ -34,11 +31,4 @@ function mapStateToProps (state) {
   return { loading: state.events.loading, events: state.events.events }
 }
 
-function mapDispatchToProps(dispatch) {
-  return { actions: bindActionCreators(actions, dispatch) }
-}
-
-export default connect(mapStateToProps, actions)(EventContainer)
-
-// export default connect(mapStateToProps, actions)(EventContainer)
-// this is where the redux state will help out so right now the props are null but once redux is set up, i will be able to fetch the event data and mappropstosate
+export default connect(mapStateToProps)(EventContainer)

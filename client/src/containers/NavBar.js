@@ -1,16 +1,24 @@
 import React, { Component } from 'react'
-import { Switch, Route } from 'react-router'
-import Login from './Login'
+import { Switch, Link , Route } from 'react-router-dom'
 import Search from '../components/Search'
 import MapComponent from './MapComponent'
-import { Grid, Sidebar, Segment, Button, Menu, Image, Icon, Header } from 'semantic-ui-react'
+import EventContainer from './EventContainer'
+import { Sidebar, Segment, Button, Menu, Icon } from 'semantic-ui-react'
 
 class SidebarLeftPush extends Component {
-  state = { visible: false }
+  state = {
+    visible: false,
+    loggedIn: ''
+  }
+
+  componentWillMount() {
+    localStorage.getItem('jwt') ? this.setState({loggedIn: true}) : this.setState({loggedIn: false})
+  }
 
   toggleVisibility = () => this.setState({ visible: !this.state.visible })
 
   render() {
+    console.log(this.state);
     const { visible } = this.state
     return (
       <div>
@@ -19,7 +27,7 @@ class SidebarLeftPush extends Component {
           <Sidebar as={Menu} animation='push' width='wide' visible={visible} icon='labeled' vertical inverted>
             <Menu.Item name='home'>
               <Icon name='home' />
-              Home
+              <Link to='/events'><Button>Events</Button></Link>
             </Menu.Item>
             <Menu.Item name='find'>
               <Icon name='find' />
@@ -33,19 +41,27 @@ class SidebarLeftPush extends Component {
               My Profile
               {/* User Profile Component goes here */}
             </Menu.Item>
+            {this.state.loggedIn && <Menu.Item name='id badge'>
+              <Icon name='id badge' />
+              <Link to='/'><Button onClick={this.props.logout}>Logout</Button></Link>
+            </Menu.Item>}
           </Sidebar>
           <Sidebar.Pusher>
             <Segment basic>
               <div className="map-alignment">
-                <MapComponent>
-                </MapComponent>
+                <Switch>
+                  <Route exact path='/events' component={MapComponent} />
+                  <Route path='/events/:eventId' component={EventContainer} />
+                </Switch>
               </div>
             </Segment>
           </Sidebar.Pusher>
         </Sidebar.Pushable>
+
       </div>
     )
   }
 }
+
 
 export default SidebarLeftPush
