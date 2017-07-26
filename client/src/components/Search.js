@@ -1,51 +1,24 @@
 import React, { Component } from 'react'
-import { Search } from 'semantic-ui-react'
+import { connect } from 'react-redux'
+import { Dropdown } from 'semantic-ui-react'
 
+class Search extends React.Component {
 
-export default class SearchExampleStandard extends Component {
-  state = {
-    results: []
+  componentWillReceiveProps(nextProps) {
+    nextProps.users.map((el, i) => el["text"] = el.name)
   }
 
-  componentWillMount() {
-    // this.resetComponent()
-    fetch('http://localhost:3000/api/v1/users')
-    .then(res => res.json())
-    .then(res => this.setState({results: res}))
-  }
-
-  resetComponent = () => this.setState({ isLoading: false, results: [], value: '' })
-
-  handleResultSelect = (e, { result }) => this.setState({ value: result.title })
-
-  handleSearchChange = (e, { value }) => {
-    this.setState({ isLoading: true, value })
-
-    setTimeout(() => {
-      if (this.state.value.length < 1) return this.resetComponent()
-
-
-
-      this.setState({
-        isLoading: false,
-      })
-    }, 500)
-  }
-
-  render() {
-    const { isLoading, value, results } = this.state
-
+  render(){
     return (
-      <div>
-          <Search size='tiny'
-            loading={isLoading}
-            onResultSelect={this.handleResultSelect}
-            onSearchChange={this.handleSearchChange}
-            results={results}
-            value={value}
-            {...this.props}
-          />
-      </div>
+      <Dropdown placeholder='Search Users' searchInput={'name'} search selection options={this.props.users} />
     )
   }
+
 }
+
+
+function mapStateToProps (state) {
+  return {users: state.usersReducer.users}
+}
+
+export default connect(mapStateToProps)(Search)

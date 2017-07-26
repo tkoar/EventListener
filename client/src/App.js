@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
-import { Switch, Route, BrowserRouter } from 'react-router-dom'
+import { Switch, Route, BrowserRouter, Redirect } from 'react-router-dom'
 import EventContainer from './containers/EventContainer'
 import LoginComponent from './components/facebooklogin';
 import NavBar from './containers/NavBar'
 import Auth from './components/Auth/AuthAdapter'
+import Profile from './components/Profile'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actions from './actions'
-const {fetchEvents} = actions
+const {fetchEvents, allUsers, currentUser} = actions
 
 class App extends Component {
   constructor() {
@@ -23,20 +24,24 @@ class App extends Component {
   }
 
   componentWillMount() {
-    this.authorize()
     this.props.fetchEvents()
+    this.props.allUsers()
+    this.authorize()
   }
 
   authorize() {
     Auth.currentUser().then(res => {
+      this.props.currentUser(res)
       if (!res.error) {
-        console.log(res)
         this.setState({
           auth: {
             loggedIn: true,
             user: res
           }
         })
+      }
+      else {
+        return <Redirect to='/'/>
       }
     })
   }
@@ -52,7 +57,7 @@ class App extends Component {
       },
       body: JSON.stringify(createUser)
     })
-    this.login(response.userID)
+    this.login(response)
   }
 
   login = (loginParams) => {
@@ -63,7 +68,6 @@ class App extends Component {
             auth: {loggedIn: true, user: user}
           })
           localStorage.setItem("jwt", user.jwt)
-          console.log('loggedin')
         }
       })
     }
@@ -78,11 +82,14 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.props);
     return (
       <BrowserRouter>
         <div className='parallax'>
-          <Route exact path='/' render={() => <LoginComponent response={this.responseFacebook}/>} />
-          <Route path='/events' render={() => <NavBar logout={this.logout} />} />
+          <Switch>
+            <Route exact path='/' render={() => <LoginComponent response={this.responseFacebook}/>} />
+            <Route path='/' render={() => <NavBar logout={this.logout} />}></Route>
+          </Switch>
         </div>
       </BrowserRouter>
 
@@ -91,11 +98,11 @@ class App extends Component {
 }
 
 function mapStateToProps (state) {
-  return state.events
+  return {events: state.events, users: state}
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({fetchEvents: fetchEvents}, dispatch)
+  return bindActionCreators({fetchEvents: fetchEvents, allUsers: allUsers, currentUser: currentUser}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

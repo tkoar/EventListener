@@ -13,7 +13,7 @@ export default class AuthAdapter {
 
   static currentUser = () => {
     return(
-      fetch(`http://localhost:3000/api/v1/me`,
+      fetch('http://localhost:3000/api/v1/me',
         {headers: headers()}
       )
       .then(resp => resp.json())

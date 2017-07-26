@@ -73,6 +73,18 @@ export function fetchEvents(dispatch) {
     return fetch('http://localhost:3000/api/v1/events')
       .then(res => res.json())
       .then(res => dispatch({type: 'FETCH_EVENTS', payload: res}))
-      .then(res => console.log(res))
   }
+}
+
+export function allUsers(dispatch) {
+  return function(dispatch) {
+    dispatch({type: 'LOADING_USERS'})
+    return fetch('http://localhost:3000/api/v1/users')
+      .then(res => res.json())
+      .then(res => dispatch({type: 'ALL_USERS', payload: res}))
+  }
+}
+
+export function currentUser(currentUser) {
+  return {type: 'CURRENT_USER', payload: currentUser}
 }

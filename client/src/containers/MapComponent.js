@@ -12,12 +12,6 @@ class MapComponent extends React.Component {
     zoom: 13
   };
 
-  componentWillMount() {
-    // fetch('http://localhost:3000/api/v1/events')
-    // .then(res => res.json())
-    // .then(res => this.setState({events: res}))
-    console.log(this.props)
-  }
 
   render() {
     const avatars = this.props.events.map((el, i) => {
@@ -39,7 +33,8 @@ class MapComponent extends React.Component {
 }
 
 function mapStateToProps (state) {
-  return state.events
+  return {currentUser: state.usersReducer.currentUser, events: state.events.events}
 }
+
 
 export default connect(mapStateToProps)(MapComponent)

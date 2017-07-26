@@ -4,14 +4,8 @@ module Api
       before_action :authorize_user!, only: [:show]
 
       def show
-        render json: {
-          id: user.id
-          name: user.name,
-          email: user.email
-        }
+        render json: current_user
       end
-
-      
 
     end
   end

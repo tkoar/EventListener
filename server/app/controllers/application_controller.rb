@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::API
 
   def create
-    user = User.find_by(userID: params[:userID])
+    user = User.find_by(email: params['email'])
     if user.present?
       created_jwt = issue_token({id: user.id})
       render json: {name: user.name, email: user.email, jwt: created_jwt}
@@ -23,11 +23,11 @@ class ApplicationController < ActionController::API
   end
 
   def current_user
-    @current_user ||= User.find_by(userID: token_user_id)
+    @current_user ||= User.find_by(id: token_user_id)
   end
 
   def token_user_id
-    decoded_token.first["userID"]
+    decoded_token.first["id"]
   end
 
   def decoded_token
