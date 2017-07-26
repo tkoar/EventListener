@@ -4,7 +4,5 @@ class Friendships < ActiveRecord::Migration[5.1]
       t.integer :user_id
       t.integer :friend_id
     end
-    add_index(:friendships, [:user_id, :friend_id], :unique => true)
-    add_index(:friendships, [:friend_id, :user_id], :unique => true)
   end
 end

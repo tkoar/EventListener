@@ -14,6 +14,7 @@ class MapComponent extends React.Component {
 
 
   render() {
+    console.log(this.props)
     const avatars = this.props.events.map((el, i) => {
       let location = el.locations[0]
       return ( <MapAvatars key={i} {...el} {...location} lat={parseFloat(location.latitude)} lng={parseFloat(location.longitude)} /> )

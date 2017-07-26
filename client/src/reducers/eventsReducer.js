@@ -5,6 +5,8 @@ const eventsReducer = (state={loading: false, events: []}, action) => {
       return Object.assign({}, state, {loading: true})
     case 'FETCH_EVENTS':
       return Object.assign({}, state, {loading:false, events: action.payload})
+    case 'FILTERED_EVENTS':
+      return Object.assign({}, state, {loading:false, events: action.payload})
     default:
       return state
   }

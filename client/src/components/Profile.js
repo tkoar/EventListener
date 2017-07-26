@@ -19,7 +19,6 @@ class Profile extends React.Component {
   }
 
   render() {
-    console.log("hi from profile")
     return (
       <div>
         {!this.props.currentUser ? <Loader fluid /> :

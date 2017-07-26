@@ -85,6 +85,15 @@ export function allUsers(dispatch) {
   }
 }
 
+export function filterEvents(dispatch) {
+  return function(dispatch) {
+    dispatch({type: 'LOADING_EVENTS'})
+    return fetch('http://localhost:3000/api/v1/events')
+      .then(res => res.json())
+      .then(res => dispatch({type: 'FETCH_EVENTS', payload: res}))
+  }
+}
+
 export function currentUser(currentUser) {
   return {type: 'CURRENT_USER', payload: currentUser}
 }
