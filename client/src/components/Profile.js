@@ -8,19 +8,20 @@ import { Card, List, Image, Icon, Grid } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actions from '../actions'
-const {fetchEvents, updateUserIconBackEnd, updateUserIconFrontEnd, currentUser} = actions
+const {fetchEvents, updateUserIconBackEnd, updateUserIconFrontEnd, currentUser, updateEventIconFrontEnd, updateEventIconBackEnd} = actions
 
 class Profile extends React.Component {
 
   updateIcon = (newUrl) => {
     let updateObj = {
       url: newUrl,
-      userId: this.props.currentUser.id
+      userId: this.props.currentUser.id,
+      events: this.props.events
     }
     this.props.updateUserIconFrontEnd(updateObj)
     this.props.updateUserIconBackEnd(updateObj)
-    // this.props.updateEventIconFrontEnd(updateObj)
-    // this.props.updateEventIconBackEnd(updateObj)
+    this.props.updateEventIconFrontEnd(updateObj)
+    this.props.updateEventIconBackEnd(updateObj)
   }
 
   makeEventList = () => {
@@ -77,11 +78,11 @@ class Profile extends React.Component {
 
 function mapStateToProps (state) {
   console.log("Profile", state.usersReducer.currentUser, state);
-  return {currentUser: state.usersReducer.currentUser}
+  return {currentUser: state.usersReducer.currentUser, events: state.events.events}
 }
 
 function mapDispatchToProps (dispatch) {
-  return bindActionCreators({updateUserIconBackEnd: updateUserIconBackEnd, updateUserIconFrontEnd: updateUserIconFrontEnd}, dispatch)
+  return bindActionCreators({updateUserIconBackEnd: updateUserIconBackEnd, updateUserIconFrontEnd: updateUserIconFrontEnd, updateEventIconFrontEnd: updateEventIconFrontEnd, updateEventIconBackEnd: updateEventIconBackEnd}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile)

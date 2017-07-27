@@ -7,6 +7,10 @@ const eventsReducer = (state={loading: false, events: []}, action) => {
       return Object.assign({}, state, {loading:false, events: action.payload})
     case 'FILTERED_EVENTS':
       return Object.assign({}, state, {loading:false, events: action.payload})
+      case 'UPDATING_EVENTS':
+        return Object.assign({}, state, {events: action.payload})
+      case 'POSTING_EVENTS':
+        return state
     default:
       return state
   }

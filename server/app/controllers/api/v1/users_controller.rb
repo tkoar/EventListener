@@ -27,7 +27,7 @@ module Api
           else
             e = Event.new({description: event['description'], fb_event_id: event['id'], name: event['name'], rsvp_status: event['rsvp_status'], start_time: event['start_time'], last_action: "added an event:", owner_icon: @user.icon, owner_id: @user.id})
             e.save
-            e.locations << location
+            e.location = location
             location.save
           end
           @user.events << e unless @user.events.detect { |el| el.fb_event_id === e['fb_event_id']}

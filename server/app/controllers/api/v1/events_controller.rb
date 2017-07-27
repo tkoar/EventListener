@@ -11,6 +11,15 @@ module Api
         render json: Event.find(params[:id])
       end
 
+      def update
+        events = params[:events]
+        events.each do |e|
+          event = Event.find(e[:id])
+          event[:owner_icon] = e[:owner_icon]
+          event.save
+        end
+      end
+
     end
   end
 end

@@ -114,3 +114,35 @@ export function updateUserIconBackEnd(updateObj) {
     })
   }
 }
+
+export function updateEventIconFrontEnd(updateObj) {
+    const updatedEvents = updateObj.events.map(el => {
+      let newEl = {...el}
+      if (el.owner_id === updateObj.userId) {
+        newEl.owner_icon = updateObj.url
+      }
+      return newEl
+    })
+  return {type: 'UPDATING_EVENTS', payload: updatedEvents}
+}
+
+export function updateEventIconBackEnd(updateObj) {
+  const updatedEvents = updateObj.events.map(el => {
+    let newEl = {...el}
+    if (el.owner_id === updateObj.userId) {
+      newEl.owner_icon = updateObj.url
+      return newEl
+    }
+  }).filter(el => !!el)
+  let eventObj = {events: updatedEvents}
+  return {type: 'POSTING_EVENTS', payload:
+      fetch('http://localhost:3000/api/v1/events', {
+      method: 'PATCH',
+      headers: {
+        "content-type": "application/json",
+        'accept': "application/json"
+      },
+      body: JSON.stringify(eventObj)
+    })
+  }
+}
