@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Switch, Link , Route , withRouter} from 'react-router-dom'
 import Search from '../components/Search'
 import MapComponent from './MapComponent'
+import Auth from '../components/Auth/AuthAdapter'
 import Profile from '../components/Profile'
 import FriendProfile from '../components/FriendProfile'
 import EventContainer from './EventContainer'
@@ -13,6 +14,14 @@ class NavBar extends Component {
   state = {
     visible: false,
     loggedIn: ''
+  }
+
+  componentWillReceiveProps(nextProps) {
+    Auth.currentUser().then(res => {
+      if (res.error) {
+        nextProps.history.push(`/`)
+      }
+    })
   }
 
   componentWillMount() {
