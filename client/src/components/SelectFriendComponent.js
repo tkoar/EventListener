@@ -26,7 +26,7 @@ class SelectFriendComponent extends React.Component {
 }
 
 function mapStateToProps (state) {
-  return {friends: state.usersReducer.currentUser.friends, events: state.events.events}
+  return {currentUser: state.usersReducer.currentUser, events: state.events.events}
 }
 
 function mapDispatchToProps (dispatch) {

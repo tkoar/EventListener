@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { Dropdown } from 'semantic-ui-react'
+import Loader from './Loader'
 import PropTypes from 'prop-types'
 
 
@@ -15,7 +16,9 @@ class Search extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    nextProps.users.map((el, i) => el["text"] = el.name)
+    if (nextProps.users) {
+      nextProps.users.map((el, i) => el["text"] = el.name)
+    }
   }
 
   getId = (event, data) => {
@@ -34,8 +37,13 @@ class Search extends React.Component {
     console.log("search", this.context)
     return (
       <div>
-        <Dropdown placeholder='Search Users' searchInput={'name'} onChange={this.getId} search selection options={this.props.users} />
+        { !this.props.users ? <Loader /> :
+        <div>
+          <Dropdown placeholder='Search Users' searchInput={'name'} onChange={this.getId} search selection options={this.props.users} />
+        </div>
+        }
       </div>
+
 
     )
   }

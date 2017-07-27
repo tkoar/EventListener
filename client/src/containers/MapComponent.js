@@ -15,9 +15,14 @@ class MapComponent extends React.Component {
 
   render() {
     console.log(this.props)
+    // const myAvatars = this.props.currentUser.events.map((el, i) => {
+    //   debugger
+    //   let location = el.locations[0]
+    //   return ( <MapAvatars key={i} {...el} {...location} lat={parseFloat(location.latitude)} lng={parseFloat(location.longitude)} /> )
+    // })
     const avatars = this.props.events.map((el, i) => {
       let location = el.locations[0]
-      return ( <MapAvatars key={i} {...el} {...location} lat={parseFloat(location.latitude)} lng={parseFloat(location.longitude)} /> )
+      return ( <MapAvatars key={i} users={el.users} {...el} {...location} lat={parseFloat(location.latitude)} lng={parseFloat(location.longitude)} /> )
     })
     const key = process.env.GOOGLE_API
     return (
@@ -34,7 +39,7 @@ class MapComponent extends React.Component {
 }
 
 function mapStateToProps (state) {
-  return {currentUser: state.usersReducer.currentUser, events: state.events.events}
+  return {users: state.usersReducer.users, events: state.events.events}
 }
 
 

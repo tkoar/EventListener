@@ -97,3 +97,20 @@ export function filterEvents(dispatch) {
 export function currentUser(currentUser) {
   return {type: 'CURRENT_USER', payload: currentUser}
 }
+
+export function updateUserIconFrontEnd(updateObj) {
+  return {type: 'UPDATING_ICON', payload: updateObj}
+}
+
+export function updateUserIconBackEnd(updateObj) {
+  return {type: 'FETCHING', payload:
+      fetch('http://localhost:3000/api/v1/users/' + updateObj.userId, {
+      method: 'PATCH',
+      headers: {
+        "content-type": "application/json",
+        'accept': "application/json"
+      },
+      body: JSON.stringify(updateObj)
+    })
+  }
+}

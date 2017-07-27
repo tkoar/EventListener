@@ -1,27 +1,37 @@
 import React from 'react'
 import '../semantic/dist/semantic.css'
 import Loader from '../components/Loader'
-import {Card} from 'semantic-ui-react'
+import {Card, Image as ImageComponent, Item, Icon} from 'semantic-ui-react'
 import { connect } from 'react-redux'
 
 class EventContainer extends React.Component {
 
+  rsvpStats = (currentEvent) => {
+    switch (currentEvent.rsvp_status) {
+      case 'attending':
+        return <div>{currentEvent.rsvp_status}<Icon color='green' name='check' /></div>
+      default:
+        return <div>{currentEvent.rsvp_status}</div>
+    }
+  }
+
   render() {
     const event = this.props.events.filter(el => el.id.toString() === this.props.match.params.eventId)
     const currentEvent = event[0]
-    console.log(currentEvent, this.props)
     return (
-      !currentEvent ? <Card><Card.Content><Loader active/></Card.Content></Card> :
-      <Card>
-        <Card.Header>{currentEvent.name}</Card.Header>
-        <Card.Content text>
-          <Card.Description>
-            <p>RSVP Status: {currentEvent.rsvp_status}</p>
-            <p>Description:</p>
-            <p>{currentEvent.description}</p>
-          </Card.Description>
-        </Card.Content>
-     </Card>
+      !currentEvent ? <Card fluid><Card.Content><div style={{height: '800px'}}><Loader active/></div></Card.Content></Card> :
+      <Item>
+        <Item.Content>
+          <Item.Header>{currentEvent.name}</Item.Header>
+          <Item.Meta>
+          <Item.Description>{currentEvent.description}</Item.Description>
+          <Item.Extra>
+            {this.rsvpStats(currentEvent)}
+          </Item.Extra>
+          </Item.Meta>
+
+        </Item.Content>
+      </Item>
     )
   }
 

@@ -1,8 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Popup } from 'semantic-ui-react'
+import { connect } from 'react-redux'
 
-export default class MapAvatars extends React.Component {
+class MapAvatars extends React.Component {
 
   constructor(props) {
     super(props)
@@ -16,15 +17,14 @@ export default class MapAvatars extends React.Component {
     this.setState({modal: !this.state.modal})
   }
   render() {
-    const autoPic = 'http://www.pngall.com/wp-content/uploads/2016/03/Pig-Transparent.png'
-
+    let user = this.props.users.filter(el => el.icon === this.props.icon)
     return (
       <div>
         <Link to={`/events/${this.props.id}`}>
           <div style={{position: 'relative', top: -20, left: -30}}>
             <Popup
               key={this.props.id}
-              trigger={<img alt="piggo" className="piggo" style={{ height: 'auto', width: '50px'}} src={autoPic}></img>}
+              trigger={<img alt="piggo" className="piggo" style={{ height: 'auto', width: '50px'}} src={this.props.owner_icon}></img>}
               header={this.props.name}
               hoverable
               modal={this.state.modal}
@@ -37,3 +37,8 @@ export default class MapAvatars extends React.Component {
   }
 
 }
+function mapStateToProps (state) {
+  return {currentUser: state.usersReducer.currentUser, users: state.usersReducer.users}
+}
+
+export default connect(mapStateToProps)(MapAvatars)

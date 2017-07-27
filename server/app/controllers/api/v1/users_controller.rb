@@ -25,7 +25,7 @@ module Api
           if Event.find_by(fb_event_id: event['id'])
             e = Event.find_by(fb_event_id: event['id'])
           else
-            e = Event.new({description: event['description'], fb_event_id: event['id'], name: event['name'], rsvp_status: event['rsvp_status'], start_time: event['start_time'], last_action: "added an event:"})
+            e = Event.new({description: event['description'], fb_event_id: event['id'], name: event['name'], rsvp_status: event['rsvp_status'], start_time: event['start_time'], last_action: "added an event:", owner_icon: @user.icon, owner_id: @user.id})
             e.save
             e.locations << location
             location.save
@@ -34,6 +34,12 @@ module Api
 
         end
 
+      end
+
+      def update
+        user = User.find(params[:userId])
+        user.icon = params[:url]
+        user.save
       end
 
       private
