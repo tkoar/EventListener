@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::API
 
   def create
-    user = User.find_by(email: params['email'])
+    user = User.find_by(userID: params[:id])
     if user.present?
       created_jwt = issue_token({id: user.id})
       render json: {name: user.name, email: user.email, jwt: created_jwt}
