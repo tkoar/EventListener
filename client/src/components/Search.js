@@ -1,45 +1,34 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import { Dropdown } from 'semantic-ui-react'
 import Loader from './Loader'
 import PropTypes from 'prop-types'
+import * as actions from '../actions'
+const {getUserProfile} = actions
 
 
 class Search extends React.Component {
 
-  state = {
-    redirect: false
-  }
   static contextTypes = {
     router: PropTypes.object
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.users) {
-      nextProps.users.map((el, i) => el["text"] = el.name)
-    }
-  }
-
   getId = (event, data) => {
+    // debugger
+    // let user = data.options.filter(user => user.id === parseInt(event.target.id))[0]
+    // this.props.getUserProfile(user)
     this.context.router.history.push(`/users/${event.target.id}`)
-
-  }
-
-  redirectToFriend(id) {
-    if (this.state.redirect) {
-      console.log("redirect", id)
-      return (<Redirect to={`/users/${id}`}/>)
-    }
   }
 
   render(){
-    console.log("search", this.context)
+    const opts = this.props.users.map(u => ({id: u.id, text: u.name}))
     return (
       <div>
         { !this.props.users ? <Loader /> :
         <div>
-          <Dropdown placeholder='Search Users' searchInput={'name'} onChange={this.getId} search selection options={this.props.users} />
+          <Dropdown placeholder='Search Users' searchInput='name' onChange={this.getId} search selection options={opts} />
         </div>
         }
       </div>
@@ -55,4 +44,8 @@ function mapStateToProps (state) {
   return {users: state.usersReducer.users}
 }
 
-export default connect(mapStateToProps)(Search)
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({getUserProfile: getUserProfile}, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search)

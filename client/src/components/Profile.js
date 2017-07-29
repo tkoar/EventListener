@@ -4,13 +4,17 @@ import Loader from '../components/Loader'
 import EditIconForm from './EditIconForm'
 import Auth from './Auth/AuthAdapter'
 import { Redirect, Link } from 'react-router-dom'
-import { Card, List, Image, Icon, Grid } from 'semantic-ui-react'
+import { Button, Card, List, Image, Icon, Grid } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actions from '../actions'
 const {fetchEvents, updateUserIconBackEnd, updateUserIconFrontEnd, currentUser, updateEventIconFrontEnd, updateEventIconBackEnd} = actions
 
 class Profile extends React.Component {
+
+  state = {
+    editIcon: false
+  }
 
   updateIcon = (newUrl) => {
     let updateObj = {
@@ -46,6 +50,10 @@ class Profile extends React.Component {
               <Grid.Row>
                 <Grid.Column width={4}>
                   <Card fluid>
+                    <div>
+                      <EditIconForm updateIcon={this.updateIcon}/>
+                    </div>
+                    <br></br>
                     <Image src={`${this.props.currentUser.icon}`}></Image>
                     <Card.Content>
                       <Card.Header>{this.props.currentUser.name}</Card.Header>
@@ -61,15 +69,13 @@ class Profile extends React.Component {
                   </Card>
                 </Grid.Column>
                 <Grid.Column width={12}>
-                  <List divided relaxed>{this.makeEventList()}</List>
+                  <div className="scrolling-page">
+                    <List divided relaxed>{this.makeEventList()}</List>
+                  </div>
                 </Grid.Column>
               </Grid.Row>
             </Grid>
           </div>}
-
-          <div>
-            <EditIconForm updateIcon={this.updateIcon}/>
-          </div>
       </div>
     )
   }

@@ -86,6 +86,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div className='parallax'>
+          <div>{localStorage.getItem('jwt') && <Redirect to='/events'/>}</div>
           <Switch>
             <Route exact path='/' render={() => <LoginComponent response={this.responseFacebook}/>} />
             <Route path='/' render={() => <NavBar logout={this.logout} />}></Route>

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       resources :users, only: [:create, :index, :show, :update]
       resources :locations
       patch '/events', to: 'events#update'
+      patch '/friendship', to: 'friendship#update'
     end
   end
 end

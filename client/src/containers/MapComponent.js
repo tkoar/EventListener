@@ -27,9 +27,9 @@ class MapComponent extends React.Component {
     const key = process.env.GOOGLE_API
     return (
         <GoogleMapReact
-         key='AIzaSyDXPH2k0zPWnw86gLR7DKbWGN9873fp308'
-         defaultCenter={this.props.center}
-         defaultZoom={this.props.zoom}
+          key='AIzaSyDXPH2k0zPWnw86gLR7DKbWGN9873fp308'
+          defaultCenter={this.props.center}
+          defaultZoom={this.props.zoom}
        >
          {avatars}
        </GoogleMapReact>

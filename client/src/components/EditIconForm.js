@@ -18,10 +18,9 @@ class EditIconForm extends React.Component {
     return (
       <Form onSubmit={this.handleSubmit}>
         <Form.Field>
-          <label>Link to new URL:</label>
+          <Button fluid color='blue' type='submit'>Paste Link To Update Your Icon</Button>
           <input onChange={this.handleChange} placeholder='link goes here...'></input>
         </Form.Field>
-        <Button type='submit'>Update My Icon</Button>
       </Form>
     )
   }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170727210458) do
+ActiveRecord::Schema.define(version: 20170729231626) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 20170727210458) do
     t.string "icon", default: "https://s-media-cache-ak0.pinimg.com/originals/1b/62/4e/1b624e3f7915cf91c6dfa2219da247a5.png"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "bio", default: "Bio goes here..."
   end
 
 end

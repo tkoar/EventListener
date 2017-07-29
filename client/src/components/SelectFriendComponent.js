@@ -16,10 +16,9 @@ class SelectFriendComponent extends React.Component {
   }
 
   render() {
-    console.log(this.props);
-    const options = [{email: "terrancekoar@gmail.com", events: [], friends: [], id: 3, name: "Terrance Koar", text: "Terrance Koar"}]
+    const options = this.props.currentUser.friends
     return(
-      <Dropdown placeholder='Select Friends' multiple selection onChange={this.handleSelectFriend} options={options} />
+      <Dropdown placeholder='Select Friends' searchInput={'name'} multiple selection onChange={this.handleSelectFriend} options={options} />
     )
   }
 

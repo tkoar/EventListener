@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Popup } from 'semantic-ui-react'
+import { Popup, Icon, Header } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 
 class MapAvatars extends React.Component {
@@ -17,7 +17,11 @@ class MapAvatars extends React.Component {
     this.setState({modal: !this.state.modal})
   }
   render() {
-    let user = this.props.users.filter(el => el.icon === this.props.icon)
+    // eventUser does not work for some reason!!
+    // if (this.props.users) {
+    //   var eventUser = this.props.users.filter(el => el.id === this.props.owner_id)[0]
+    // }
+    const startDate = new Date(this.props.start_time).toDateString()
     return (
       <div>
         <Link to={`/events/${this.props.id}`}>
@@ -27,9 +31,14 @@ class MapAvatars extends React.Component {
               trigger={<img alt="piggo" className="piggo" style={{ height: 'auto', width: '50px'}} src={this.props.owner_icon}></img>}
               header={this.props.name}
               hoverable
-              modal={this.state.modal}
-              content={this.props.city}
-            />
+              inverted>
+              <Header>{`${this.props.name}`}</Header>
+              {/* <Icon color='olive' name='user circle outline'></Icon>{eventUser.name} */}
+              <Icon color='blue' name='map pin'></Icon>{this.props.city}
+              <br></br>
+              <Icon color='blue' name='calendar'></Icon>{startDate}
+              </Popup>
+
           </div>
         </Link>
       </div>

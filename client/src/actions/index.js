@@ -146,3 +146,29 @@ export function updateEventIconBackEnd(updateObj) {
     })
   }
 }
+
+export function getUserProfile(user) {
+  return ({type: 'GET_ONE_USER', payload: user})
+}
+
+export function addFriendFrontEnd(friendObj) {
+  return ({type: 'UPDATING_FRIENDS', payload: friendObj})
+}
+
+export function addFriendBackEnd(friendObj) {
+  const updateParameters = {
+    addedFriend_id: friendObj.newFriend.id,
+    friendAdder_id: friendObj.currentUser.id
+  }
+  debugger
+  return {type: 'FETCHING', payload:
+      fetch('http://localhost:3000/api/v1/friendship' , {
+      method: 'PATCH',
+      headers: {
+        "content-type": "application/json",
+        'accept': "application/json"
+      },
+      body: JSON.stringify(updateParameters)
+    })
+  }
+}

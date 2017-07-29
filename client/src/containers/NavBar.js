@@ -37,13 +37,7 @@ class NavBar extends Component {
       <div>
         <Button onClick={this.toggleVisibility}>Toggle Visibility</Button>
         <Sidebar.Pushable as={Segment}>
-          <Sidebar as={Menu} animation='push' width='wide' visible={visible} icon='labeled' vertical inverted>
-            <Link to='/events'>
-              <Menu.Item name='home'>
-                <Icon name='home' />
-                Home
-              </Menu.Item>
-            </Link>
+          <Sidebar as={Menu} animation='uncover' width='wide' visible={visible} icon='labeled' vertical inverted>
             <Menu.Item name='find'>
               <Icon name='find' />
               Search
@@ -51,6 +45,12 @@ class NavBar extends Component {
                 <Search />
               </div>
             </Menu.Item>
+            <Link to='/events'>
+              <Menu.Item name='home'>
+                <Icon name='home' />
+                Home
+              </Menu.Item>
+            </Link>
             <Link to='/myprofile'>
               <Menu.Item name='drivers license'>
                 <Icon name='drivers license' size='massive' />
@@ -59,7 +59,10 @@ class NavBar extends Component {
             </Link>
             <Menu.Item name='filter'>
               <Icon name='filter' />
-              <SelectFriendComponent/>
+              Filter Friends
+              <div className='text-margin'>
+                <SelectFriendComponent/>
+              </div>
             </Menu.Item>
             {this.state.loggedIn &&
             <Link to='/' onClick={this.props.logout}>
