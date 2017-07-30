@@ -26,7 +26,7 @@ class FriendProfile extends React.Component {
   }
 
   renderEditBioButton = () => {
-    
+
   }
 
   makeEventList = () => {
@@ -51,6 +51,7 @@ class FriendProfile extends React.Component {
         <Link to={`events/${el.id}`}>
         <List.Header as='a'><strong>Name:</strong> {el.name}</List.Header></Link>
         <List.Description as='a'><strong>Email:</strong> {el.email}</List.Description>
+        <List.Description as='a'><strong>Bio:</strong> {el.bio}</List.Description>
       </List.Content>
     </List.Item>)
     )

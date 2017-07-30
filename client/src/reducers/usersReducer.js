@@ -1,5 +1,5 @@
 
-export default function userReducer(state={loading: false, users: [], currentUser: {}, userProfile: {}}, action) {
+export default function userReducer(state={loading: false, users: [], currentUser: {}, userProfile: {}, relevantFriendIds: []}, action) {
   switch (action.type) {
     case 'LOADING_USERS':
       return Object.assign({}, state, {loading: true})
@@ -23,6 +23,8 @@ export default function userReducer(state={loading: false, users: [], currentUse
       return Object.assign({}, state, {users: updatedUsers})
     case 'UPDATING_ICON':
       return Object.assign({}, state, {currentUser: {...state.currentUser, icon: action.payload.url}})
+    case 'RELEVANT_FRIENDS':
+      return Object.assign({}, state, {relevantFriendIds: action.payload})
     default:
       return state
   }

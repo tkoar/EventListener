@@ -12,26 +12,32 @@ class MapComponent extends React.Component {
     zoom: 13
   };
 
-
-  render() {
-    console.log(this.props)
-    // const myAvatars = this.props.currentUser.events.map((el, i) => {
-    //   debugger
-    //   let location = el.locations[0]
-    //   return ( <MapAvatars key={i} {...el} {...location} lat={parseFloat(location.latitude)} lng={parseFloat(location.longitude)} /> )
-    // })
-    const avatars = this.props.events.map((el, i) => {
+  relevantEvents = () => {
+    let relevantIds = this.props.currentUser.friends.map(el => el.id) || []
+    relevantIds.push(this.props.currentUser.id)
+    if (this.props.friendIds > 0) {
+      relevantIds = this.props.friendIds
+      relevantIds.push(this.props.currentUser.id)
+    }
+    let pertinentEvents = this.props.events.filter((el, i) => relevantIds.includes(el.owner_id)) || []
+    console.log(relevantIds, pertinentEvents)
+    let avatars = pertinentEvents.map((el, i) => {
       let location = el.location
       return ( <MapAvatars key={i} users={el.users} {...el} {...location} lat={parseFloat(location.latitude)} lng={parseFloat(location.longitude)} /> )
     })
-    const key = process.env.GOOGLE_API
+    return avatars
+  }
+
+
+  render() {
+    const myFriendsAvatars = this.relevantEvents() || []
     return (
         <GoogleMapReact
           key='AIzaSyDXPH2k0zPWnw86gLR7DKbWGN9873fp308'
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
        >
-         {avatars}
+         {myFriendsAvatars}
        </GoogleMapReact>
 
     );
@@ -39,7 +45,7 @@ class MapComponent extends React.Component {
 }
 
 function mapStateToProps (state) {
-  return {users: state.usersReducer.users, events: state.events.events}
+  return {users: state.usersReducer.users, events: state.events.events, currentUser: state.usersReducer.currentUser, friendIds: state.usersReducer.relevantFriendIds}
 }
 
 

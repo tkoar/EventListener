@@ -16,10 +16,12 @@ class Search extends React.Component {
   }
 
   getId = (event, data) => {
-    // debugger
-    // let user = data.options.filter(user => user.id === parseInt(event.target.id))[0]
-    // this.props.getUserProfile(user)
-    this.context.router.history.push(`/users/${event.target.id}`)
+    if (event.target.childElementCount > 0) {
+      this.context.router.history.push(`/users/${event.target.id}`)
+    } else {
+      let userId = event.target.parentElement.id
+      this.context.router.history.push(`/users/${userId}`)
+    }
   }
 
   render(){

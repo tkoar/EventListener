@@ -160,7 +160,6 @@ export function addFriendBackEnd(friendObj) {
     addedFriend_id: friendObj.newFriend.id,
     friendAdder_id: friendObj.currentUser.id
   }
-  debugger
   return {type: 'FETCHING', payload:
       fetch('http://localhost:3000/api/v1/friendship' , {
       method: 'PATCH',
@@ -171,4 +170,8 @@ export function addFriendBackEnd(friendObj) {
       body: JSON.stringify(updateParameters)
     })
   }
+}
+
+export function relevantFriendIds(friendIds) {
+  return { type: "RELEVANT_FRIENDS", payload: friendIds }
 }
