@@ -21,7 +21,7 @@ class SelectFriendComponent extends React.Component {
     this.props.currentUser.friends = this.props.currentUser.friends || []
     const friendOptions = this.props.currentUser.friends.map(u => ({id: u.id, text: u.name, value: u.name, image: {avatar: true, src: u.icon} })) || []
     return(
-      <Dropdown onChange={this.setFriendIds} placeholder='Select Friend' fluid selection options={friendOptions} />
+      <Dropdown onChange={this.setFriendIds} placeholder='Select Friend' inverted fluid selection options={friendOptions} />
     )
   }
 

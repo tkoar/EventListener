@@ -20,8 +20,17 @@ class MapComponent extends React.Component {
       relevantIds.push(this.props.currentUser.id)
     }
     let pertinentEvents = this.props.events.filter((el, i) => relevantIds.includes(el.owner_id)) || []
-    console.log(relevantIds, pertinentEvents)
-    let avatars = pertinentEvents.map((el, i) => {
+    var filteredEvents = pertinentEvents
+    if (this.props.eventsRange !== {} && this.props.eventsRange.startDate !== this.props.eventsRange.endDate) {
+      filteredEvents = pertinentEvents.filter(el => {
+        let start = new Date(el.start_time)
+        if (start > this.props.eventsRange.startDate && start < this.props.eventsRange.endDate) {
+          return el
+        }
+      })
+    }
+    console.log(filteredEvents, pertinentEvents);
+    let avatars = filteredEvents.map((el, i) => {
       let location = el.location
       return ( <MapAvatars key={i} users={el.users} {...el} {...location} lat={parseFloat(location.latitude)} lng={parseFloat(location.longitude)} /> )
     })
@@ -45,7 +54,7 @@ class MapComponent extends React.Component {
 }
 
 function mapStateToProps (state) {
-  return {users: state.usersReducer.users, events: state.events.events, currentUser: state.usersReducer.currentUser, friendIds: state.usersReducer.relevantFriendIds}
+  return {users: state.usersReducer.users, events: state.events.events, currentUser: state.usersReducer.currentUser, friendIds: state.usersReducer.relevantFriendIds, eventsRange: state.events.eventsRange}
 }
 
 

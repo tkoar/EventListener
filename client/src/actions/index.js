@@ -175,3 +175,10 @@ export function addFriendBackEnd(friendObj) {
 export function relevantFriendIds(friendIds) {
   return { type: "RELEVANT_FRIENDS", payload: friendIds }
 }
+
+
+export function dateRange(dateRange) {
+  if (dateRange.startDate !== dateRange.endDate) {
+    return { type: 'DATE_RANGE', payload: dateRange }
+  }
+}

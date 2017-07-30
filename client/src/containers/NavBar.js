@@ -8,10 +8,10 @@ import Auth from '../components/Auth/AuthAdapter'
 import Profile from '../components/Profile'
 import FriendProfile from '../components/FriendProfile'
 import EventContainer from './EventContainer'
+import Calendar from '../components/CalendarComponent'
 import SelectFriendComponent from '../components/SelectFriendComponent'
 import { Sidebar, Segment, Button, Menu, Icon } from 'semantic-ui-react'
-// import * as actions from '../actions'
-// const {relevantFriendIds} = actions
+import * as actions from '../actions'
 
 class NavBar extends Component {
   state = {
@@ -31,10 +31,6 @@ class NavBar extends Component {
   componentWillMount() {
     localStorage.getItem('jwt') ? this.setState({loggedIn: true}) : this.setState({loggedIn: false})
   }
-
-  // setFriendIds = () => {
-  //
-  // }
 
   toggleVisibility = () => this.setState({ visible: !this.state.visible })
 
@@ -67,9 +63,16 @@ class NavBar extends Component {
             </Link>
             <Menu.Item name='filter'>
               <Icon name='filter' />
-              Filter Friends
+              Filter by Friend
               <div className='text-margin'>
                 <SelectFriendComponent />
+              </div>
+            </Menu.Item>
+            <Menu.Item name='filter'>
+              <Icon name='calendar' />
+              Filter by Date
+              <div className='text-margin'>
+                <Calendar />
               </div>
             </Menu.Item>
             {this.state.loggedIn &&
@@ -102,5 +105,6 @@ class NavBar extends Component {
 function mapStateToProps (state) {
   return {currentUser: state.usersReducer.currentUser, users: state.usersReducer.users, friendIds: state.usersReducer.relevantFriendIds}
 }
+
 
 export default withRouter(connect(mapStateToProps)(NavBar))

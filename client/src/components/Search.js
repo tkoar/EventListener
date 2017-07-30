@@ -25,12 +25,12 @@ class Search extends React.Component {
   }
 
   render(){
-    const opts = this.props.users.map(u => ({id: u.id, text: u.name}))
+    const opts = this.props.users.map(u => ({id: u.id, text: u.name, value: u.name, image: {avatar: true, src: u.icon} }))
     return (
       <div>
         { !this.props.users ? <Loader /> :
         <div>
-          <Dropdown placeholder='Search Users' searchInput='name' onChange={this.getId} search selection options={opts} />
+          <Dropdown placeholder='Search Users' searchInput='name' onChange={this.getId} fluid search selection options={opts} />
         </div>
         }
       </div>

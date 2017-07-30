@@ -1,5 +1,5 @@
 
-const eventsReducer = (state={loading: false, events: []}, action) => {
+const eventsReducer = (state={loading: false, events: [], eventsRange: {}}, action) => {
   switch (action.type) {
     case 'LOADING_EVENTS':
       return Object.assign({}, state, {loading: true})
@@ -7,10 +7,12 @@ const eventsReducer = (state={loading: false, events: []}, action) => {
       return Object.assign({}, state, {loading:false, events: action.payload})
     case 'FILTERED_EVENTS':
       return Object.assign({}, state, {loading:false, events: action.payload})
-      case 'UPDATING_EVENTS':
-        return Object.assign({}, state, {events: action.payload})
-      case 'POSTING_EVENTS':
-        return state
+    case 'UPDATING_EVENTS':
+      return Object.assign({}, state, {events: action.payload})
+    case 'POSTING_EVENTS':
+      return state
+    case 'DATE_RANGE':
+      return Object.assign({}, state, {eventsRange: action.payload})
     default:
       return state
   }
