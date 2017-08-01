@@ -26,6 +26,9 @@ export default function userReducer(state={loading: false, users: [], currentUse
     case 'UPDATING_BIO':
       return Object.assign({}, state, {currentUser: {...state.currentUser, bio: action.payload.bio}})
     case 'RELEVANT_FRIENDS':
+    console.log('REDUCER', action.payload)
+      return Object.assign({}, state, {relevantFriendIds: action.payload})
+    case 'CLEAR_FRIEND_IDS':
       return Object.assign({}, state, {relevantFriendIds: action.payload})
     default:
       return state

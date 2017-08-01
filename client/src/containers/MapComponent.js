@@ -14,27 +14,39 @@ class MapComponent extends React.Component {
     zoom: 13
   }
 
-  relevantEvents = () => {
-    let relevantIds = this.props.currentUser.friends.map(el => el.id) || []
-    relevantIds.push(this.props.currentUser.id)
+  pertinentEvents = (relevantIds) => {
+    let events = []
+    this.props.events.forEach((el, i) => {
+      if (relevantIds.includes(el.owner_id)) {
+        events.push(el)
+      }
+    })
+    return events
+  }
 
-    if (this.props.friendIds > 0) {
+  relevantEvents = () => {
+    let relevantIds = []
+    if (this.props.friendIds.length > 0) {
       relevantIds = this.props.friendIds
+      relevantIds.push(this.props.currentUser.id)
+    } else {
+      relevantIds = this.props.currentUser.friends.map(el => el.id) || []
       relevantIds.push(this.props.currentUser.id)
     }
 
-    let pertinentEvents = this.props.events.filter((el, i) => relevantIds.includes(el.owner_id)) || []
-    let filteredEvents = pertinentEvents
-    if (this.props.eventsRange.reset === 'reset') {
-      filteredEvents = pertinentEvents
-    } else if (this.props.eventsRange.startDate !== this.props.eventsRange.endDate) {
-      filteredEvents = pertinentEvents.filter(el => {
+    let filteredEvents = this.pertinentEvents(relevantIds)
+    let calendarStartDate = this.props.eventsRange.startDate
+    let calendarEndDate = this.props.eventsRange.endDate
+
+    if (calendarStartDate !== calendarEndDate) {
+      filteredEvents = filteredEvents.filter(el => {
         let start = new Date(el.start_time)
-        if (start > this.props.eventsRange.startDate && start < this.props.eventsRange.endDate) {
+        if (start > calendarStartDate && start < calendarEndDate) {
           return el
         }
       })
     }
+
     let avatars = filteredEvents.map((el, i) => {
       let location = el.location
       return ( <MapAvatars key={i} users={el.users} {...el} {...location} lat={parseFloat(location.latitude)} lng={parseFloat(location.longitude)} /> )

@@ -173,7 +173,12 @@ export function addFriendBackEnd(friendObj) {
 }
 
 export function relevantFriendIds(friendIds) {
+  console.log('ACTIONS', friendIds)
   return { type: "RELEVANT_FRIENDS", payload: friendIds }
+}
+
+export function deleteIdFilter() {
+  return { type: "CLEAR_FRIEND_IDS", payload: [] }
 }
 
 
