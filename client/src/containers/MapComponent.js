@@ -1,13 +1,14 @@
 import React from 'react'
 import GoogleMapReact from 'google-map-react'
 import MapAvatars from '../components/MapAvatars'
+import Loader from '../components/Loader'
 import { connect } from 'react-redux'
 
 class MapComponent extends React.Component {
 
-  state = {
-    events: []
-  }
+  // state = {
+  //   events: []
+  // }
 
   static defaultProps = {
     center: {lat: 40.705163, lng: -74.014049},
@@ -56,12 +57,16 @@ class MapComponent extends React.Component {
 
 
   render() {
+    const user = this.props.currentUser
     const myFriendsAvatars = this.relevantEvents() || []
-    const center = this.props.center || this.props.currentUser.location
+    let lng = parseFloat(user.current_city_lng)
+    let lat = parseFloat(user.current_city_lat)
+    let realCenter = isNaN(lat) ? [40.705163, -74.014049] : [lat, lng]
     return (
+      isNaN(lat) ? <Loader/> :
       <GoogleMapReact
         key='AIzaSyDXPH2k0zPWnw86gLR7DKbWGN9873fp308'
-        defaultCenter={this.props.center}
+        defaultCenter={realCenter}
         defaultZoom={this.props.zoom}>
           {myFriendsAvatars}
       </GoogleMapReact>

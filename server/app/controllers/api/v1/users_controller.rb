@@ -16,7 +16,7 @@ module Api
         if User.find_by(userID: user_params[:userID])
           @user = User.find_by(userID: user_params[:userID])
         else
-          @user = User.create(name: user_params[:name], email: user_params[:email], userID: user_params[:userID], accessToken: user_params[:accessToken], icon: params[:user][:picture][:data][:url])
+          @user = User.create(name: user_params[:name], email: user_params[:email], userID: user_params[:userID], accessToken: user_params[:accessToken], icon: params[:user][:picture][:data][:url], current_city_lat: params[:location][:lat], current_city_lng: params[:location][:lng])
         end
         user_events = params[:user][:events][:data].each do |event|
           location = Location.new({name: event['place']['name'], city: event['place']['location']['city'], country: event['place']['location']['country'], latitude: event['place']['location']['latitude'], longitude: event['place']['location']['longitude'], state: event['place']['location']['state'], street: event['place']['location']['street'], zip: event['place']['location']['zip']})

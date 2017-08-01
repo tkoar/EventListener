@@ -5,7 +5,7 @@ const LoaderExampleTextShorthand = () => (
   <div className='loader'>
     <Segment>
       <Dimmer active>
-        <Loader content='Loading' />
+        <Loader size='massive' content='Loading' />
       </Dimmer>
     </Segment>
   </div>

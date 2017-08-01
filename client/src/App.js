@@ -9,6 +9,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actions from './actions'
 const {fetchEvents, allUsers, currentUser} = actions
+var google_geocoding = require('google-geocoding')
 
 class App extends Component {
   constructor() {
@@ -46,9 +47,10 @@ class App extends Component {
     })
   }
 
-  responseFacebook = (response) => {
-    console.log(response)
-    let createUser = {user: response}
+
+  responseFacebook = (location, response) => {
+    let createUser = {user: response, location: location}
+    console.log(location)
     fetch('http://localhost:3000/api/v1/users', {
       method: 'POST',
       headers: {

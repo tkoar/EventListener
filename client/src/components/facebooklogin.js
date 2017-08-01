@@ -2,8 +2,23 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 import FacebookLogin from 'react-facebook-login';
 import '../App.css'
+var google_geocoding = require('google-geocoding')
+
 
 export default class LoginComponent extends React.Component {
+
+  geocodeUserLocation = (response) => {
+      let location = response.location.name
+      google_geocoding.geocode(location, (err, location) => {
+      if( err ) {
+        console.log('Error: ' + err)
+      } else if( !location ) {
+        console.log('No result.')
+      } else {
+        this.props.response({lat: `${location.lat}`, lng: `${location.lng}`}, response)
+      }
+    })
+  }
 
   render() {
     const key = process.env.FACEBOOK_API
@@ -19,7 +34,7 @@ export default class LoginComponent extends React.Component {
             // autoLoad={true}
             fields="name,email,picture,events,location"
             scope="public_profile,user_events,rsvp_event,email,user_location"
-            callback={this.props.response}
+            callback={this.geocodeUserLocation}
           />
         </Link>
       </div>
