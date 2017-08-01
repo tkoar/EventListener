@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Popup, Icon, Header } from 'semantic-ui-react'
+import { Popup, Icon } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 
 class MapAvatars extends React.Component {
@@ -26,14 +26,13 @@ class MapAvatars extends React.Component {
             <Popup
               key={this.props.id}
               trigger={<img alt="piggo" className="piggo" style={{ height: 'auto', width: '42px'}} src={this.props.owner_icon}></img>}
-              header={this.props.name}
               hoverable
               inverted>
-              <Header>{`${this.props.name}`}</Header>
-              {/* <Icon color='olive' name='user circle outline'></Icon>{eventUser.name} */}
+              <Icon color='teal' name='calendar'></Icon>{this.props.name}
+              <br></br>
               <Icon color='blue' name='map pin'></Icon>{this.props.city}
               <br></br>
-              <Icon color='blue' name='calendar'></Icon>{startDate}
+              <Icon color='blue' loading name='time'></Icon>{startDate}
             </Popup>
 
           </div>

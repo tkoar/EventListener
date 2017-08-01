@@ -34,6 +34,7 @@ class SelectFriendComponent extends React.Component {
         fluid
         multiple
         selection
+        search
         allowAdditions
         options={friendOptions}
       />
@@ -43,7 +44,6 @@ class SelectFriendComponent extends React.Component {
 }
 
 function mapStateToProps (state) {
-  console.log(state)
   return {currentUser: state.usersReducer.currentUser, events: state.events.events, friendIds: state.usersReducer.relevantFriendIds}
 }
 

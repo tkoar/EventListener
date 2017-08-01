@@ -173,7 +173,6 @@ export function addFriendBackEnd(friendObj) {
 }
 
 export function relevantFriendIds(friendIds) {
-  console.log('ACTIONS', friendIds)
   return { type: "RELEVANT_FRIENDS", payload: friendIds }
 }
 

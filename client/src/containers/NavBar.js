@@ -15,7 +15,6 @@ class NavBar extends Component {
   state = {
     visible: false,
     loggedIn: '',
-    // friendIds: []
   }
 
   componentWillReceiveProps(nextProps) {
@@ -33,7 +32,6 @@ class NavBar extends Component {
   toggleVisibility = () => this.setState({ visible: !this.state.visible })
 
   render() {
-    console.log(this.props);
     const { visible } = this.state
     return (
       <div>

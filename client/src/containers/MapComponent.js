@@ -57,7 +57,7 @@ class MapComponent extends React.Component {
       isNaN(lat) ? <Loader/> :
       <GoogleMapReact
         key='AIzaSyDXPH2k0zPWnw86gLR7DKbWGN9873fp308'
-        defaultCenter={realCenter}
+        center={realCenter}
         defaultZoom={13}>
           {myFriendsAvatars}
       </GoogleMapReact>

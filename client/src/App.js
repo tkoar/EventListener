@@ -47,7 +47,6 @@ class App extends Component {
 
   responseFacebook = (location, response) => {
     let createUser = {user: response, location: location}
-    console.log(location)
     fetch('http://localhost:3000/api/v1/users', {
       method: 'POST',
       headers: {
