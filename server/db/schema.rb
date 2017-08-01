@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170729231626) do
+ActiveRecord::Schema.define(version: 20170731182238) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,6 +66,8 @@ ActiveRecord::Schema.define(version: 20170729231626) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "bio", default: "Bio goes here..."
+    t.string "current_city_lat", default: "40.705163"
+    t.string "current_city_lng", default: "-74.014049"
   end
 
 end

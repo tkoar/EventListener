@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { DateRange } from 'react-date-range'
+import { Button } from 'semantic-ui-react'
+
 import * as actions from '../actions'
 const { dateRange } = actions
 
@@ -9,35 +11,44 @@ const { dateRange } = actions
 class Calendar extends Component {
 
   setDateRange = (range) => {
-    let start = new Date(range.startDate._d.toString())
-    let end = new Date(range.endDate._d.toString())
-    let dateRange = {startDate: start, endDate: end}
-    this.props.dateRange(dateRange)
+    if (range.reset === 'reset') {
+      this.props.dateRange(range)
+    } else {
+      let start = new Date(range.startDate._d.toString())
+      let end = new Date(range.endDate._d.toString())
+      let dateRange = {startDate: start, endDate: end}
+      this.props.dateRange(dateRange)
+    }
   }
 
   render() {
     return(
-      <DateRange
-        // onInit={this.setDateRange}
-        onChange={this.setDateRange}
-        linkedCalendars={true}
-        calendars={1}
-        theme={{
-          DaySelected : {
-            background : '#5C0029'
-          },
-          DayInRange : {
-            background : '#E5FFDE',
-            color : '#5C0029'
-          },
-          DayHover : {
-            background : '#5C0029',
-            color : '#ffffff',
-            transform : 'scale(1.1) translateY(-10%)',
-            boxShadow : '0 2px 4px rgba(0, 0, 0, 0.4)'
-            }
-        }}
-      />
+      <div>
+        {/* <Button onClick={this.setDateRange({reset: 'reset'})}>Remove Dates</Button> */}
+        <DateRange
+          startDate={ now => {return now}}
+          endDate={ now => {return now.add(1,'month')}}
+          onInit={this.setDateRange}
+          onChange={this.setDateRange}
+          linkedCalendars={true}
+          calendars={1}
+          theme={{
+            DaySelected : {
+              background : '#5C0029'
+            },
+            DayInRange : {
+              background : '#E5FFDE',
+              color : '#5C0029'
+            },
+            DayHover : {
+              background : '#5C0029',
+              color : '#ffffff',
+              transform : 'scale(1.1) translateY(-10%)',
+              boxShadow : '0 2px 4px rgba(0, 0, 0, 0.4)'
+              }
+          }}
+        />
+      </div>
     )
   }
 }

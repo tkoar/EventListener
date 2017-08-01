@@ -1,13 +1,12 @@
 import React from 'react'
 import '../App.css'
 import Loader from '../components/Loader'
-import Auth from './Auth/AuthAdapter'
-import { Redirect, Link } from 'react-router-dom'
-import {Button, Card, List, Grid, Image, Icon, Segment, Label} from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
+import {Button, Card, List, Grid, Image, Icon, Popup } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actions from '../actions'
-const {allUsers, currentUser, addFriendFrontEnd, addFriendBackEnd} = actions
+const {addFriendFrontEnd, addFriendBackEnd, addEventFrontEnd, addEventBackEnd} = actions
 
 class FriendProfile extends React.Component {
 
@@ -25,21 +24,40 @@ class FriendProfile extends React.Component {
     this.props.addFriendBackEnd(friendObj)
   }
 
-  renderEditBioButton = () => {
+  addThisEvent = (event) => {
+    let user = this.props.users.filter(u => u.id === parseInt(this.props.match.params.userId))[0]
+    let newEvent = user.events.filter(e => e.id === parseInt(event.target.id))[0]
+    newEvent.owner_id = this.props.currentUser.id
+    this.props.addEventFrontEnd(newEvent)
+    this.props.addEventBackEnd(newEvent)
+    // console.log(event.target, newEvent)
+  }
 
+  rsvpStats = (event) => {
+    switch (event.rsvp_status) {
+      case 'attending':
+        return <div>{event.rsvp_status}<Icon color='green' name='check' /></div>
+      default:
+        return <div>{event.rsvp_status}</div>
+    }
   }
 
   makeEventList = () => {
     let user = this.props.users.filter(u => u.id === parseInt(this.props.match.params.userId))[0]
-    return (user.events.map((el, i) =>  <List.Item key={i}>
-      <List.Icon name='calendar' size='huge' verticalAlign='middle' color='teal' />
-      <List.Content>
-        <Link to={`events/${el.id}`}>
-        <List.Header as='a'><strong>Name:</strong> {el.name}</List.Header></Link>
-        <List.Description as='a'><strong>RSVP Staus:</strong> {el.rsvp_status}</List.Description>
-        <List.Description as='a'><strong>Description:</strong> {el.description}</List.Description>
-      </List.Content>
-    </List.Item>)
+    return (user.events.map((el, i) => <List.Item key={i}>
+        <Popup
+          trigger={<List.Icon id={el.id} onClick={this.addThisEvent} className='list-map-icon' name='add to calendar' size='huge' verticalAlign='middle' color='teal'></List.Icon>}
+          content='Click to add this event to your events!'
+        />
+        <List.Content>
+          <Link to={`/events/${el.id}`}>
+          <List.Header as='a'><strong>Name:</strong> {el.name}</List.Header></Link>
+          <List.Description>
+            <strong>RSVP Staus:</strong>{this.rsvpStats(el)}
+          </List.Description>
+          <List.Description><strong>Description:</strong> {el.description}</List.Description>
+        </List.Content>
+      </List.Item>)
     )
   }
 
@@ -48,10 +66,12 @@ class FriendProfile extends React.Component {
     return (user.friends.map((el, i) =>  <List.Item key={i}>
       <List.Icon size='big' verticalAlign='middle'><Image src={el.icon} avatar /></List.Icon>
       <List.Content>
-        <Link to={`events/${el.id}`}>
-        <List.Header as='a'><strong>Name:</strong> {el.name}</List.Header></Link>
-        <List.Description as='a'><strong>Email:</strong> {el.email}</List.Description>
-        <List.Description as='a'><strong>Bio:</strong> {el.bio}</List.Description>
+        {/*link is not working because the url is routing to users/events/:eventID instead of events/:eventID*/}
+        <Link to={`/users/${el.id}`}>
+          <List.Header as='a'><strong>Name:</strong> {el.name}</List.Header>
+        </Link>
+        <List.Description><strong>Email:</strong> {el.email}</List.Description>
+        <List.Description><strong>Bio:</strong> {el.bio}</List.Description>
       </List.Content>
     </List.Item>)
     )
@@ -99,15 +119,7 @@ class FriendProfile extends React.Component {
 
   render() {
     const userPageId = parseInt(this.props.match.params.userId)
-    let alreadyFriends
-    let ownProfile
     let user = this.props.users.filter(u => u.id === userPageId)[0]
-    if (user) {
-      alreadyFriends = (user.friends.includes(this.props.userProfile)) ? true : false
-      ownProfile = (userPageId === user.id) ? true : false
-    }
-
-    console.log(this.props.users, user);
     return (
       <div className="scrolling-page">
         {!user ? <Loader /> :
@@ -130,7 +142,6 @@ class FriendProfile extends React.Component {
                       </a>
                     </Card.Content>
                       {this.renderAddFriendButton()}
-                      {this.renderEditBioButton()}
                   </Card>
                 </Grid.Column>
                 <Grid.Column width={12}>
@@ -147,11 +158,11 @@ class FriendProfile extends React.Component {
 }
 
 function mapStateToProps (state) {
-  return {users: state.usersReducer.users, userProfile: state.usersReducer.userProfile, currentUser: state.usersReducer.currentUser}
+  return {users: state.usersReducer.users, userProfile: state.usersReducer.userProfile, currentUser: state.usersReducer.currentUser, addEventFrontEnd: state.events.addEventFrontEnd, addEventBackEnd: state.events.addEventBackEnd}
 }
 
 function mapDispatchToProps (dispatch) {
-  return bindActionCreators({addFriendFrontEnd: addFriendFrontEnd, addFriendBackEnd: addFriendBackEnd}, dispatch)
+  return bindActionCreators({addFriendFrontEnd: addFriendFrontEnd, addFriendBackEnd: addFriendBackEnd, addEventFrontEnd: addEventFrontEnd, addEventBackEnd: addEventBackEnd}, dispatch)
 }
 
 

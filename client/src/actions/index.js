@@ -178,7 +178,40 @@ export function relevantFriendIds(friendIds) {
 
 
 export function dateRange(dateRange) {
-  if (dateRange.startDate !== dateRange.endDate) {
-    return { type: 'DATE_RANGE', payload: dateRange }
+  return { type: 'DATE_RANGE', payload: dateRange }
+}
+
+export function updateUserBioFrontEnd(updatedBio) {
+  return {type: 'UPDATING_BIO', payload: updatedBio}
+}
+
+export function updateUserBioBackEnd(updatedBio) {
+  return {type: 'FETCHING', payload:
+      fetch('http://localhost:3000/api/v1/users/' + updatedBio.userId, {
+      method: 'PATCH',
+      headers: {
+        "content-type": "application/json",
+        'accept': "application/json"
+      },
+      body: JSON.stringify(updatedBio)
+    })
   }
+}
+
+export function addEventFrontEnd(event) {
+  return {type: 'ADD_EVENT', payload: event}
+}
+
+export function addEventBackEnd(event) {
+  const eventObj = {event: event}
+  return ({type: 'FETCHING', payload:
+    fetch('http://localhost:3000/api/v1/events', {
+      method: 'POST',
+      headers: {
+        "content-type": "application/json",
+        'accept': "application/json"
+      },
+      body: JSON.stringify(eventObj)
+    })
+  })
 }

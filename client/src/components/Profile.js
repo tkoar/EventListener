@@ -2,13 +2,14 @@ import React from 'react'
 import '../App.css'
 import Loader from '../components/Loader'
 import EditIconForm from './EditIconForm'
+import EditBioForm from './EditBioForm'
 import Auth from './Auth/AuthAdapter'
 import { Redirect, Link } from 'react-router-dom'
 import { Button, Card, List, Image, Icon, Grid } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actions from '../actions'
-const {fetchEvents, updateUserIconBackEnd, updateUserIconFrontEnd, currentUser, updateEventIconFrontEnd, updateEventIconBackEnd} = actions
+const {fetchEvents, updateUserIconBackEnd, updateUserIconFrontEnd, currentUser, updateEventIconFrontEnd, updateEventIconBackEnd, updateUserBioFrontEnd, updateUserBioBackEnd} = actions
 
 class Profile extends React.Component {
 
@@ -28,17 +29,29 @@ class Profile extends React.Component {
     this.props.updateEventIconBackEnd(updateObj)
   }
 
+  updateBio = (newBio) => {
+    let updatedBio = {
+      bio: newBio,
+      userId: this.props.currentUser.id,
+    }
+    this.props.updateUserBioFrontEnd(updatedBio)
+    this.props.updateUserBioBackEnd(updatedBio)
+  }
+
   makeEventList = () => {
-    return (this.props.currentUser.events.map(el =>  <List.Item>
-      <List.Icon name='calendar' size='huge' verticalAlign='middle' color='teal' />
-      <List.Content>
-        <Link to={`events/${el.id}`}>
-        <List.Header as='a'><strong>Name:</strong> {el.name}</List.Header></Link>
-        <List.Description as='a'><strong>RSVP Staus:</strong> {el.rsvp_status}</List.Description>
-        <List.Description as='a'><strong>Description:</strong> {el.description}</List.Description>
-      </List.Content>
-    </List.Item>)
-    )
+    if (this.props.currentUser.events){
+      return (
+        this.props.currentUser.events.map(el =>  <List.Item>
+        <List.Icon name='calendar' size='huge' verticalAlign='middle' color='teal' />
+        <List.Content>
+          <Link to={`events/${el.id}`}>
+          <List.Header as='a'><strong>Name:</strong> {el.name}</List.Header></Link>
+          <List.Description as='a'><strong>RSVP Staus:</strong> {el.rsvp_status}</List.Description>
+          <List.Description as='a'><strong>Description:</strong> {el.description}</List.Description>
+        </List.Content>
+      </List.Item>)
+      )
+    }
   }
 
   render() {
@@ -48,17 +61,17 @@ class Profile extends React.Component {
           <div>
             <Grid>
               <Grid.Row>
-                <Grid.Column width={4}>
-                  <Card fluid>
-                    <div>
+                <Grid.Column className="scrolling-page" width={4}>
+                  <Card fluid color={'#5C0029'}>
+                    <Card.Content extra>
                       <EditIconForm updateIcon={this.updateIcon}/>
-                    </div>
+                    </Card.Content>
                     <br></br>
                     <Image src={`${this.props.currentUser.icon}`}></Image>
                     <Card.Content>
                       <Card.Header>{this.props.currentUser.name}</Card.Header>
                       <Card.Meta>{this.props.currentUser.email}</Card.Meta>
-                      <Card.Description>Daniel is a comedian living in Nashville.</Card.Description>
+                      <Card.Description>{this.props.currentUser.bio}</Card.Description>
                     </Card.Content>
                     <Card.Content extra>
                       <a>
@@ -66,10 +79,13 @@ class Profile extends React.Component {
                          {this.props.currentUser.friends.length} Friends
                       </a>
                     </Card.Content>
+                    <Card.Content extra>
+                      <EditBioForm updateBio={this.updateBio}/>
+                    </Card.Content>
                   </Card>
                 </Grid.Column>
-                <Grid.Column width={12}>
-                  <div className="scrolling-page">
+                <Grid.Column className="scrolling-page" width={12}>
+                  <div>
                     <List divided relaxed>{this.makeEventList()}</List>
                   </div>
                 </Grid.Column>
@@ -88,7 +104,7 @@ function mapStateToProps (state) {
 }
 
 function mapDispatchToProps (dispatch) {
-  return bindActionCreators({updateUserIconBackEnd: updateUserIconBackEnd, updateUserIconFrontEnd: updateUserIconFrontEnd, updateEventIconFrontEnd: updateEventIconFrontEnd, updateEventIconBackEnd: updateEventIconBackEnd}, dispatch)
+  return bindActionCreators({updateUserIconBackEnd: updateUserIconBackEnd, updateUserIconFrontEnd: updateUserIconFrontEnd, updateEventIconFrontEnd: updateEventIconFrontEnd, updateEventIconBackEnd: updateEventIconBackEnd, updateUserBioBackEnd: updateUserBioBackEnd, updateUserBioFrontEnd: updateUserBioFrontEnd,}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile)

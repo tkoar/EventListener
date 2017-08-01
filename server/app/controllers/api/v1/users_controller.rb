@@ -25,11 +25,14 @@ module Api
             e = Event.find_by(fb_event_id: event['id'])
           else
             e = Event.new({description: event['description'], fb_event_id: event['id'], name: event['name'], rsvp_status: event['rsvp_status'], start_time: event['start_time'], last_action: "added an event:", owner_icon: @user.icon, owner_id: @user.id})
-            e.save
             e.location = location
-            location.save
+            if e.location
+              e.save
+              location.save
+            end
           end
           @user.events << e unless @user.events.detect { |el| el.fb_event_id === e['fb_event_id']}
+
 
         end
 
@@ -37,7 +40,8 @@ module Api
 
       def update
         user = User.find(params[:userId])
-        user.icon = params[:url]
+        user.icon ||= params[:url]
+        user.bio ||= params[:bio]
         user.save
       end
 

@@ -23,6 +23,8 @@ export default function userReducer(state={loading: false, users: [], currentUse
       return Object.assign({}, state, {users: updatedUsers})
     case 'UPDATING_ICON':
       return Object.assign({}, state, {currentUser: {...state.currentUser, icon: action.payload.url}})
+    case 'UPDATING_BIO':
+      return Object.assign({}, state, {currentUser: {...state.currentUser, bio: action.payload.bio}})
     case 'RELEVANT_FRIENDS':
       return Object.assign({}, state, {relevantFriendIds: action.payload})
     default:

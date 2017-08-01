@@ -20,9 +20,13 @@
 
 .piggo {
   opacity: .8;
-  transition: all 2s;
+  transition: 1s;
   border-radius: 100%;
   /*background-color: #fff;*/
+}
+
+.loader {
+  height: 200px;
 }
 
 .profile-event-list {
@@ -48,6 +52,9 @@
   animation: colorShiftImg 3s;
   opacity: 1;
   transform: scale(2) rotate(-360deg);
+  z-index: 99
+  /*border-color: #5C0029;
+  border-style: dashed;*/
 }
 
 @keyframes App-logo-spin {
@@ -113,6 +120,10 @@ $font-family-default: 'Helvetica', sans-serif;
   background-color: #666666;
   /*border-color: #4C69BA;*/
   padding: 10px;
+}
+
+.list-map-icon {
+  cursor: pointer;
 }
 
 .button-login:hover {

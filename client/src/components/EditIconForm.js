@@ -7,11 +7,12 @@ class EditIconForm extends React.Component {
     url: ''
   }
 
-  handleChange = (e) => {this.setState({url: e.target.value})}
+  handleChange = (e) => this.setState({url: e.target.value})
 
   handleSubmit = (e) => {
     e.preventDefault()
     this.props.updateIcon(this.state.url)
+    this.setState({url: ''})
   }
 
   render() {
@@ -19,7 +20,7 @@ class EditIconForm extends React.Component {
       <Form onSubmit={this.handleSubmit}>
         <Form.Field>
           <Button fluid color='blue' type='submit'>Paste Link To Update Your Icon</Button>
-          <input onChange={this.handleChange} placeholder='link goes here...'></input>
+          <input onChange={this.handleChange} value={this.state.url} placeholder='link goes here...'></input>
         </Form.Field>
       </Form>
     )

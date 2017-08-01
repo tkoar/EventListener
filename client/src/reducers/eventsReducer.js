@@ -9,6 +9,8 @@ const eventsReducer = (state={loading: false, events: [], eventsRange: {}}, acti
       return Object.assign({}, state, {loading:false, events: action.payload})
     case 'UPDATING_EVENTS':
       return Object.assign({}, state, {events: action.payload})
+    case 'ADD_EVENT':
+      return Object.assign({}, state, {events: [...state.events, action.payload]})
     case 'POSTING_EVENTS':
       return state
     case 'DATE_RANGE':

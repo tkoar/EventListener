@@ -2,12 +2,11 @@ import React from 'react'
 import { Dimmer, Loader, Segment } from 'semantic-ui-react'
 
 const LoaderExampleTextShorthand = () => (
-  <div>
+  <div className='loader'>
     <Segment>
       <Dimmer active>
         <Loader content='Loading' />
       </Dimmer>
-      {/* <Image src='/assets/images/wireframe/short-paragraph.png' /> */}
     </Segment>
   </div>
 )

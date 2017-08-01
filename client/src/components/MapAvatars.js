@@ -16,11 +16,8 @@ class MapAvatars extends React.Component {
   handleClick = (event) => {
     this.setState({modal: !this.state.modal})
   }
+
   render() {
-    // eventUser does not work for some reason!!
-    // if (this.props.users) {
-    //   var eventUser = this.props.users.filter(el => el.id === this.props.owner_id)[0]
-    // }
     const startDate = new Date(this.props.start_time).toDateString()
     return (
       <div>
@@ -28,7 +25,7 @@ class MapAvatars extends React.Component {
           <div style={{position: 'relative', top: -20, left: -30}}>
             <Popup
               key={this.props.id}
-              trigger={<img alt="piggo" className="piggo" style={{ height: 'auto', width: '50px'}} src={this.props.owner_icon}></img>}
+              trigger={<img alt="piggo" className="piggo" style={{ height: 'auto', width: '42px'}} src={this.props.owner_icon}></img>}
               header={this.props.name}
               hoverable
               inverted>
@@ -37,7 +34,7 @@ class MapAvatars extends React.Component {
               <Icon color='blue' name='map pin'></Icon>{this.props.city}
               <br></br>
               <Icon color='blue' name='calendar'></Icon>{startDate}
-              </Popup>
+            </Popup>
 
           </div>
         </Link>
