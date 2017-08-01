@@ -21,7 +21,6 @@ export default class LoginComponent extends React.Component {
   }
 
   render() {
-    const key = process.env.FACEBOOK_API
     return (
       <div className="login-div ">
         <Link to='/events'>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import {bindActionCreators} from 'redux'
 import { Switch, Link , Route , withRouter} from 'react-router-dom'
 import Search from '../components/Search'
 import MapComponent from './MapComponent'
@@ -11,7 +10,6 @@ import EventContainer from './EventContainer'
 import Calendar from '../components/CalendarComponent'
 import SelectFriendComponent from '../components/SelectFriendComponent'
 import { Sidebar, Segment, Button, Menu, Icon } from 'semantic-ui-react'
-import * as actions from '../actions'
 
 class NavBar extends Component {
   state = {

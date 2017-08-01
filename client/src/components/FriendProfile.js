@@ -17,7 +17,7 @@ class FriendProfile extends React.Component {
   }
 
   handleAddFriend = (event) => {
-    let user = this.props.users.filter(u => u.id === parseInt(this.props.match.params.userId))[0]
+    let user = this.props.users.filter(u => u.id === parseInt(this.props.match.params.userId, 10))[0]
     let friendObj = {currentUser: this.props.currentUser, newFriend: user}
     event.preventDefault()
     this.props.addFriendFrontEnd(friendObj)
@@ -25,8 +25,8 @@ class FriendProfile extends React.Component {
   }
 
   addThisEvent = (event) => {
-    let user = this.props.users.filter(u => u.id === parseInt(this.props.match.params.userId))[0]
-    let newEvent = user.events.filter(e => e.id === parseInt(event.target.id))[0]
+    let user = this.props.users.filter(u => u.id === parseInt(this.props.match.params.userId, 10))[0]
+    let newEvent = user.events.filter(e => e.id === parseInt(event.target.id, 10))[0]
     newEvent.owner_id = this.props.currentUser.id
     this.props.addEventFrontEnd(newEvent)
     this.props.addEventBackEnd(newEvent)
@@ -42,7 +42,7 @@ class FriendProfile extends React.Component {
   }
 
   makeEventList = () => {
-    let user = this.props.users.filter(u => u.id === parseInt(this.props.match.params.userId))[0]
+    let user = this.props.users.filter(u => u.id === parseInt(this.props.match.params.userId, 10))[0]
     return (user.events.map((el, i) => <List.Item key={i}>
         <Popup
           trigger={<List.Icon id={el.id} onClick={this.addThisEvent} className='list-map-icon' name='add to calendar' size='huge' verticalAlign='middle' color='teal'></List.Icon>}
@@ -61,7 +61,7 @@ class FriendProfile extends React.Component {
   }
 
   makeFriendList = () => {
-    let user = this.props.users.filter(u => u.id === parseInt(this.props.match.params.userId))[0]
+    let user = this.props.users.filter(u => u.id === parseInt(this.props.match.params.userId, 10))[0]
     return (user.friends.map((el, i) =>  <List.Item key={i}>
       <List.Icon size='big' verticalAlign='middle'><Image src={el.icon} avatar /></List.Icon>
       <List.Content>
@@ -86,7 +86,7 @@ class FriendProfile extends React.Component {
   }
 
   renderFriendsListButton = () => {
-    let user = this.props.users.filter(u => u.id === parseInt(this.props.match.params.userId))[0]
+    let user = this.props.users.filter(u => u.id === parseInt(this.props.match.params.userId, 10))[0]
     return (
       <Button onClick={this.showEventsFriends} name="users" fluid color="teal">
         <Icon name="users"/>Show {user.name}'s Friends
@@ -95,7 +95,7 @@ class FriendProfile extends React.Component {
   }
 
   renderEventsListButton = () => {
-    let user = this.props.users.filter(u => u.id === parseInt(this.props.match.params.userId))[0]
+    let user = this.props.users.filter(u => u.id === parseInt(this.props.match.params.userId, 10))[0]
     return (
       <Button onClick={this.showEventsFriends} name="events" fluid color="blue">
         <Icon name="events"></Icon>Show {user.name}'s events
@@ -104,7 +104,7 @@ class FriendProfile extends React.Component {
   }
 
   renderAddFriendButton = () => {
-    const userPageId = parseInt(this.props.match.params.userId)
+    const userPageId = parseInt(this.props.match.params.userId, 10)
     let alreadyFriends
     let ownProfile
     let user = this.props.users.filter(u => u.id === userPageId)[0]
@@ -118,7 +118,7 @@ class FriendProfile extends React.Component {
   }
 
   render() {
-    const userPageId = parseInt(this.props.match.params.userId)
+    const userPageId = parseInt(this.props.match.params.userId, 10)
     let user = this.props.users.filter(u => u.id === userPageId)[0]
     return (
       <div className="scrolling-page">

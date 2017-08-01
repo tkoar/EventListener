@@ -6,15 +6,6 @@ import { connect } from 'react-redux'
 
 class MapComponent extends React.Component {
 
-  // state = {
-  //   events: []
-  // }
-
-  static defaultProps = {
-    center: {lat: 40.705163, lng: -74.014049},
-    zoom: 13
-  }
-
   pertinentEvents = (relevantIds) => {
     let events = []
     this.props.events.forEach((el, i) => {
@@ -67,11 +58,10 @@ class MapComponent extends React.Component {
       <GoogleMapReact
         key='AIzaSyDXPH2k0zPWnw86gLR7DKbWGN9873fp308'
         defaultCenter={realCenter}
-        defaultZoom={this.props.zoom}>
+        defaultZoom={13}>
           {myFriendsAvatars}
       </GoogleMapReact>
-
-    );
+    )
   }
 }
 

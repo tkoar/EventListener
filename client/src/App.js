@@ -1,15 +1,12 @@
 import React, { Component } from 'react'
 import { Switch, Route, BrowserRouter, Redirect } from 'react-router-dom'
-import EventContainer from './containers/EventContainer'
 import LoginComponent from './components/facebooklogin';
 import NavBar from './containers/NavBar'
 import Auth from './components/Auth/AuthAdapter'
-import Profile from './components/Profile'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actions from './actions'
 const {fetchEvents, allUsers, currentUser} = actions
-var google_geocoding = require('google-geocoding')
 
 class App extends Component {
   constructor() {

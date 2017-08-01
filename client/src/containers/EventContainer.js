@@ -2,12 +2,11 @@ import React from 'react'
 import '../semantic/dist/semantic.css'
 import Loader from '../components/Loader'
 import { Link } from 'react-router-dom'
-import {Card, Image as ImageComponent, Grid, Item, Icon, List, Popup, Button} from 'semantic-ui-react'
-import PropTypes from 'prop-types'
+import { Grid, Icon, List, Popup, Button } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actions from '../actions'
-const {addFriendFrontEnd, addFriendBackEnd, addEventFrontEnd, addEventBackEnd, removeEventFrontEnd, removeEventBackEnd} = actions
+const {addEventFrontEnd, addEventBackEnd, removeEventFrontEnd, removeEventBackEnd} = actions
 class EventContainer extends React.Component {
 
   rsvpStats = (currentEvent) => {
@@ -20,14 +19,14 @@ class EventContainer extends React.Component {
   }
 
   addThisEvent = (event) => {
-    let newEvent = this.props.events.filter(e => e.id === parseInt(event.target.id))[0]
+    let newEvent = this.props.events.filter(e => e.id === parseInt(event.target.id, 10))[0]
     newEvent.owner_id = this.props.currentUser.id
     this.props.addEventFrontEnd(newEvent)
     this.props.addEventBackEnd(newEvent)
   }
 
   handleDeleteEvent = (event) => {
-    let deleteEvent = this.props.events.filter(e => e.id === parseInt(event.target.id))[0]
+    let deleteEvent = this.props.events.filter(e => e.id === parseInt(event.target.id, 10))[0]
     this.props.removeEventFrontEnd(deleteEvent)
     this.props.removeEventBackEnd(deleteEvent)
     this.props.history.push(`/users/${deleteEvent.owner_id}`)

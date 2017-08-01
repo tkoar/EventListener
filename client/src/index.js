@@ -9,7 +9,6 @@ import App from './App';
 import { AUTH_USER} from './actions/types'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import rootReducer from './reducers/index.js'
-import registerServiceWorker from './registerServiceWorker';
 
 const store = createStore(rootReducer, composeWithDevTools(
   applyMiddleware(reduxThunk)))
@@ -24,5 +23,4 @@ if (token) {
 ReactDOM.render(
   <Provider store={store}>
     <App />
-  </Provider>, document.getElementById('root'));
-registerServiceWorker();
+  </Provider>, document.getElementById('root'))

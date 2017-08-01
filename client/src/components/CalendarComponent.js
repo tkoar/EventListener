@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { DateRange } from 'react-date-range'
-import { Button } from 'semantic-ui-react'
 
 import * as actions from '../actions'
 const { dateRange } = actions

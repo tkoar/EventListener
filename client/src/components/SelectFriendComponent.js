@@ -7,33 +7,10 @@ const {relevantFriendIds, deleteIdFilter} = actions
 
 class SelectFriendComponent extends React.Component {
 
-  // setFriendIds = (event, data) => {
-  //   let friendId = parseInt(event.target.id)
-  //   // if (friendId && !this.props.friendIds.includes(friendId)) {
-  //   //   let arrFriendIds = [friendId]
-  //   //   this.props.relevantFriendIds(arrFriendIds)
-  //   // }
-  //   this.props.relevantFriendIds([friendId])
-  // }
-
-//have to figure out multi-person filtering and unfiltering
   setFriendIds = (event, data) => {
     let friends = this.props.currentUser.friends
     let ids = this.getIds(friends, data.value)
-    // for (i = 0; i < data.value.length; i++) {
-    //   friend = friends.filter(f => f.name === data.value[i])
-    //   var id = friend.id || this.props.currentUser.id
-    //   ids.push(id)
-    // }
-    debugger
-    console.log("select friend", this.props.friendIds, ids, event.target)
     this.props.relevantFriendIds(ids)
-    // if (event.target.class === 'delete icon') {
-    //   ids = this.getIds(friends, data.value)
-    //   this.props.deleteIdFilter(ids)
-    // } else if (friendId[0] && !this.props.friendIds.includes(id) {
-    //   this.props.relevantFriendIds(ids)
-    // }
   }
 
   getIds = (friendsArr, namesArr) => {
@@ -46,7 +23,6 @@ class SelectFriendComponent extends React.Component {
     })
     return ids
   }
-
 
   render() {
     this.props.currentUser.friends = this.props.currentUser.friends || []

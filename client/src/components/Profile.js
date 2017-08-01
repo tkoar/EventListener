@@ -3,13 +3,12 @@ import '../App.css'
 import Loader from '../components/Loader'
 import EditIconForm from './EditIconForm'
 import EditBioForm from './EditBioForm'
-import Auth from './Auth/AuthAdapter'
-import { Redirect, Link } from 'react-router-dom'
-import { Button, Card, List, Image, Icon, Grid } from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
+import { Card, List, Image, Icon, Grid } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actions from '../actions'
-const {fetchEvents, updateUserIconBackEnd, updateUserIconFrontEnd, currentUser, updateEventIconFrontEnd, updateEventIconBackEnd, updateUserBioFrontEnd, updateUserBioBackEnd} = actions
+const { updateUserIconBackEnd, updateUserIconFrontEnd, updateEventIconFrontEnd, updateEventIconBackEnd, updateUserBioFrontEnd, updateUserBioBackEnd} = actions
 
 class Profile extends React.Component {
 
