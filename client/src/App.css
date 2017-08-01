@@ -62,6 +62,10 @@
   to { transform: rotate(360deg); }
 }
 
+.list-padding {
+  padding: 10px
+}
+
 .text-margin {
   margin-top: 10px;
 }

@@ -220,3 +220,22 @@ export function addEventBackEnd(event) {
     })
   })
 }
+
+export function removeEventFrontEnd(event) {
+  return {type: 'REMOVE_EVENT', payload: event}
+}
+
+export function removeEventBackEnd(event) {
+  debugger
+  const eventObj = {id: event.id}
+  return ({type: 'FETCHING', payload:
+    fetch('http://localhost:3000/api/v1/events/' + event.id, {
+      method: 'DELETE',
+      headers: {
+        "content-type": "application/json",
+        'accept': "application/json"
+      },
+      body: JSON.stringify(eventObj)
+    })
+  })
+}

@@ -40,7 +40,7 @@ module Api
         end
       end
 
-      def delete
+      def destroy
         event = Event.find(params[:id])
         event.destroy
       end

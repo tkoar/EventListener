@@ -70,6 +70,7 @@ class Profile extends React.Component {
                     <Image src={`${this.props.currentUser.icon}`}></Image>
                     <Card.Content>
                       <Card.Header>{this.props.currentUser.name}</Card.Header>
+                      <Card.Meta>{this.props.currentUser.current_city}</Card.Meta>
                       <Card.Meta>{this.props.currentUser.email}</Card.Meta>
                       <Card.Description>{this.props.currentUser.bio}</Card.Description>
                     </Card.Content>

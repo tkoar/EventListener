@@ -30,7 +30,6 @@ class FriendProfile extends React.Component {
     newEvent.owner_id = this.props.currentUser.id
     this.props.addEventFrontEnd(newEvent)
     this.props.addEventBackEnd(newEvent)
-    // console.log(event.target, newEvent)
   }
 
   rsvpStats = (event) => {
@@ -70,8 +69,9 @@ class FriendProfile extends React.Component {
         <Link to={`/users/${el.id}`}>
           <List.Header as='a'><strong>Name:</strong> {el.name}</List.Header>
         </Link>
-        <List.Description><strong>Email:</strong> {el.email}</List.Description>
-        <List.Description><strong>Bio:</strong> {el.bio}</List.Description>
+        <List.Description>City: {el.current_city}</List.Description>
+        <List.Description>Email: {el.email}</List.Description>
+        <List.Description>Bio: {el.bio}</List.Description>
       </List.Content>
     </List.Item>)
     )
@@ -132,6 +132,7 @@ class FriendProfile extends React.Component {
                     <Image src={`${user.icon}`}></Image>
                     <Card.Content>
                       <Card.Header>{user.name}</Card.Header>
+                      <Card.Meta>{user.current_city}</Card.Meta>
                       <Card.Meta>{user.email}</Card.Meta>
                       <Card.Description>{user.bio}</Card.Description>
                     </Card.Content>

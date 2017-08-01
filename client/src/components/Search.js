@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import { Redirect } from 'react-router-dom'
+import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Dropdown } from 'semantic-ui-react'
@@ -16,29 +15,19 @@ class Search extends React.Component {
   }
 
   getId = (event, data) => {
-    if (event.target.childElementCount > 0) {
-      this.context.router.history.push(`/users/${event.target.id}`)
-    } else {
-      let userId = event.target.parentElement.id
-      this.context.router.history.push(`/users/${userId}`)
-    }
+    let user = this.props.users.filter(u => u.name === data.value)[0]
+    this.context.router.history.push(`/users/${user.id}`)
   }
 
   render(){
     const opts = this.props.users.map(u => ({id: u.id, text: u.name, value: u.name, image: {avatar: true, src: u.icon} }))
     return (
+      !this.props.users ? <Loader /> :
       <div>
-        { !this.props.users ? <Loader /> :
-        <div>
-          <Dropdown placeholder='Search Users' searchInput='name' onChange={this.getId} fluid search selection options={opts} />
-        </div>
-        }
+        <Dropdown placeholder='Search Users' searchInput='name' onChange={this.getId} fluid search selection options={opts} />
       </div>
-
-
     )
   }
-
 }
 
 

@@ -80,11 +80,9 @@ class App extends Component {
     this.setState({
       auth: {loggedIn: false, user: {}}
     })
-    console.log(this.state.auth)
   }
 
   render() {
-    console.log(this.props);
     return (
       <BrowserRouter>
         <div className='parallax'>
