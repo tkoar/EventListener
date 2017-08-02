@@ -54,8 +54,8 @@ class NavBar extends Component {
             </Menu.Item>
             <Link to='/events'>
               <Menu.Item name='home'>
-                <Icon name='home' style={{color: '#AFBDDB'}} />
-                Home
+                <Icon name='map' style={{color: '#AFBDDB'}} />
+                Map
               </Menu.Item>
             </Link>
             <Link to='/myprofile'>
@@ -78,7 +78,7 @@ class NavBar extends Component {
                 <Calendar />
               </div>
             </Menu.Item>
-            {this.state.loggedIn &&
+            {localStorage.getItem('jwt') &&
             <Link to='/' onClick={this.props.logout}>
               <Menu.Item name='id badge'>
                 <Icon name='id badge' style={{color: '#AFBDDB'}} />

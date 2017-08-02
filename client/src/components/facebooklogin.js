@@ -23,7 +23,7 @@ export default class LoginComponent extends React.Component {
   render() {
     return (
       <div className="login-div ">
-        <Link to='/events'>
+        {/* <Link to='/events'> */}
           <FacebookLogin
             cssClass='button-login'
             icon="fa-facebook"
@@ -34,7 +34,7 @@ export default class LoginComponent extends React.Component {
             scope="public_profile,user_events,rsvp_event,email,user_location"
             callback={this.geocodeUserLocation}
           />
-        </Link>
+        {/* </Link> */}
       </div>
     )
   }

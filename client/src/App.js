@@ -85,7 +85,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div>
-          <div>{!localStorage.getItem('jwt') && <Redirect to='/'/>}</div>
+          <div>{this.state.auth.loggedIn && <Redirect to='/events'/>}</div>
           <Switch>
             <Route exact path='/' render={() => <div className='scrolling-background' ><LoginComponent response={this.responseFacebook}/></div>} />
             <div className='parallax'><Route path='/' render={() => <NavBar logout={this.logout} user={this.props.currentUser} />}></Route></div>

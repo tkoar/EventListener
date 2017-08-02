@@ -109,7 +109,7 @@ class Profile extends React.Component {
                       <EditIconForm updateIcon={this.updateIcon}/>
                     </Card.Content>
                     <br></br>
-                    <Image src={`${this.props.currentUser.icon}`}></Image>
+                    {this.props.currentUser.icon ? <Image src={`${this.props.currentUser.icon}`}></Image> : <Loader />}
                     <Card.Content>
                       <Card.Header>{this.props.currentUser.name}</Card.Header>
                       <Card.Meta>{this.props.currentUser.current_city}</Card.Meta>
