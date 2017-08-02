@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       get '/me', to: 'auth#show'
+      resources :comments, except: [:update]
       resources :events, except: [:update]
       resources :users, only: [:create, :index, :show, :update]
       resources :locations

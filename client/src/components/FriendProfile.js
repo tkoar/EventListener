@@ -111,7 +111,7 @@ class FriendProfile extends React.Component {
       ownProfile = (userPageId === this.props.currentUser.id) ? true : false
     }
     if (!alreadyFriends && !ownProfile) {
-      return (<Card.Content extra><Button fluid style={{color: '#383F51', color: '#fff'}} onClick={this.handleAddFriend}><Icon name="add user"></Icon>Add {user.name} to your Friends</Button></Card.Content>)
+      return (<Card.Content extra><Button fluid style={{backgroundColor: '#383F51', color: '#fff'}} onClick={this.handleAddFriend}><Icon name="add user"></Icon>Add {user.name} to your Friends</Button></Card.Content>)
     }
   }
 

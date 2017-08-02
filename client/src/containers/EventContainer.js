@@ -1,12 +1,13 @@
 import React from 'react'
 import '../semantic/dist/semantic.css'
 import Loader from '../components/Loader'
+import CommentComponent from '../components/CommentComponent'
 import { Link } from 'react-router-dom'
-import { Grid, Icon, List, Popup, Button } from 'semantic-ui-react'
+import { Grid, Icon, List, Popup, Button, Image, Comment, Header } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actions from '../actions'
-const {addEventFrontEnd, addEventBackEnd, removeEventFrontEnd, removeEventBackEnd} = actions
+const {addEventFrontEnd, addEventBackEnd, removeEventFrontEnd, removeEventBackEnd, submitCommentFrontEnd, submitCommentBackEnd} = actions
 class EventContainer extends React.Component {
 
   rsvpStats = (currentEvent) => {
@@ -16,6 +17,21 @@ class EventContainer extends React.Component {
       default:
         return <div>{currentEvent.rsvp_status}</div>
     }
+  }
+
+  handleSubmitComment = (comment) => {
+    const event = this.props.events.filter(el => el.id.toString() === this.props.match.params.eventId)[0]
+    const user = this.props.currentUser
+    let commentObj = {
+      text: comment,
+      user_id: user.id,
+      event_id: event.id,
+      icon: user.icon,
+      username: user.name,
+      created_at: undefined
+    }
+    this.props.submitCommentBackEnd(commentObj)
+    this.props.submitCommentFrontEnd(commentObj)
   }
 
   addThisEvent = (event) => {
@@ -30,6 +46,26 @@ class EventContainer extends React.Component {
     this.props.removeEventFrontEnd(deleteEvent)
     this.props.removeEventBackEnd(deleteEvent)
     this.props.history.push(`/users/${deleteEvent.owner_id}`)
+  }
+
+  getCommentList = () => {
+    const event = this.props.events.filter(el => el.id.toString() === this.props.match.params.eventId)[0]
+    const date = 'Just now!'
+    const allComments = event.comments.map((el, i) => <Comment>
+        <Link to={`/users/${el.user_id}`}>
+          <Comment.Avatar size="big" src={el.icon} style={{margin: "10px"}}/>
+        </Link>
+        <Comment.Content>
+          <Link to={`/users/${el.user_id}`}>
+            <Comment.Author as='a'>{el.username}</Comment.Author>
+          </Link>
+          <Comment.Metadata>
+            <div>{new Date(el.created_at).toDateString() || date}</div>
+          </Comment.Metadata>
+          <Comment.Text>{el.text}</Comment.Text>
+        </Comment.Content>
+      </Comment>)
+    return allComments
   }
 
 
@@ -71,7 +107,13 @@ class EventContainer extends React.Component {
           />}
         </List.Content>
         <List.Content className='list-padding'>
-          <div>Comments:</div>
+          <Comment.Group>
+            <Header as='h3' dividing>Comments:</Header>
+            {this.getCommentList()}
+          </Comment.Group>
+        </List.Content>
+        <List.Content className='list-padding'>
+          <CommentComponent submitComment={this.handleSubmitComment} />
         </List.Content>
     </List.Item>
     )
@@ -82,9 +124,7 @@ class EventContainer extends React.Component {
     return (
       <Grid>
         <Grid.Column width={12}>
-          <List relaxed divided>
-            {this.makeEventList()}
-          </List>
+          <List relaxed divided >{this.makeEventList()}</List>
         </Grid.Column>
       </Grid>
     )
@@ -93,11 +133,11 @@ class EventContainer extends React.Component {
 }
 
 function mapStateToProps (state) {
-  return { loading: state.events.loading, events: state.events.events, currentUser: state.usersReducer.currentUser, addEventFrontEnd: state.events.addEventFrontEnd, addEventBackEnd: state.events.addEventBackEnd }
+  return { loading: state.events.loading, events: state.events.events, currentUser: state.usersReducer.currentUser, addEventFrontEnd: state.events.addEventFrontEnd, addEventBackEnd: state.events.addEventBackEnd, comments: state.commentsReducer.comments }
 }
 
 function mapDispatchToProps (dispatch) {
-  return bindActionCreators({ addEventFrontEnd: addEventFrontEnd, addEventBackEnd: addEventBackEnd, removeEventFrontEnd: removeEventFrontEnd, removeEventBackEnd: removeEventBackEnd}, dispatch)
+  return bindActionCreators({ addEventFrontEnd: addEventFrontEnd, addEventBackEnd: addEventBackEnd, removeEventFrontEnd: removeEventFrontEnd, removeEventBackEnd: removeEventBackEnd, submitCommentBackEnd: submitCommentBackEnd, submitCommentFrontEnd: submitCommentFrontEnd}, dispatch)
 }
 
 

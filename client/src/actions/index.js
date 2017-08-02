@@ -225,7 +225,6 @@ export function removeEventFrontEnd(event) {
 }
 
 export function removeEventBackEnd(event) {
-  debugger
   const eventObj = {id: event.id}
   return ({type: 'FETCHING', payload:
     fetch('http://localhost:3000/api/v1/events/' + event.id, {
@@ -235,6 +234,24 @@ export function removeEventBackEnd(event) {
         'accept': "application/json"
       },
       body: JSON.stringify(eventObj)
+    })
+  })
+}
+
+export function submitCommentFrontEnd(commentObj) {
+  return {type: 'SUBMIT_COMMENT', payload: commentObj}
+}
+
+export function submitCommentBackEnd(commentObj) {
+  const comment = {comment: commentObj}
+  return ({type: 'FETCHING', payload:
+    fetch('http://localhost:3000/api/v1/comments', {
+      method: 'POST',
+      headers: {
+        "content-type": "application/json",
+        'accept': "application/json"
+      },
+      body: JSON.stringify(comment)
     })
   })
 }
