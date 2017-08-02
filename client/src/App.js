@@ -81,11 +81,11 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <div className='parallax'>
+        <div>
           <div>{localStorage.getItem('jwt') && <Redirect to='/events'/>}</div>
           <Switch>
-            <Route exact path='/' render={() => <LoginComponent response={this.responseFacebook}/>} />
-            <Route path='/' render={() => <NavBar logout={this.logout} />}></Route>
+            <Route exact path='/' render={() => <div className='scrolling-background' ><LoginComponent response={this.responseFacebook}/></div>} />
+            <div className='parallax'><Route path='/' render={() => <NavBar logout={this.logout} />}></Route></div>
           </Switch>
         </div>
       </BrowserRouter>
