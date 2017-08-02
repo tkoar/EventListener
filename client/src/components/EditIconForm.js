@@ -19,7 +19,7 @@ class EditIconForm extends React.Component {
     return (
       <Form onSubmit={this.handleSubmit}>
         <Form.Field>
-          <Button fluid color='blue' type='submit'>Paste Link To Update Your Icon</Button>
+          <Button fluid style={{backgroundColor: '#383F51', color: '#fff'}} type='submit'>Paste Link To Update Your Icon</Button>
           <input onChange={this.handleChange} value={this.state.url} placeholder='link goes here...'></input>
         </Form.Field>
       </Form>

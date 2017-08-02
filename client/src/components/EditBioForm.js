@@ -19,7 +19,7 @@ class EditIconForm extends React.Component {
     return (
       <Form onSubmit={this.handleSubmit}>
         <Form.Field>
-          <Button fluid color='blue' type='submit'>Update Your Bio Here</Button>
+          <Button fluid style={{backgroundColor: '#383F51', color: '#fff'}} type='submit'>Update Your Bio Here</Button>
           <input onChange={this.handleChange} value={this.state.bio} placeholder='link goes here...'></input>
         </Form.Field>
       </Form>

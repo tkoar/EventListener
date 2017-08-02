@@ -33,14 +33,14 @@ class Calendar extends Component {
           calendars={1}
           theme={{
             DaySelected : {
-              background : '#5C0029'
+              background : '#648A73'
             },
             DayInRange : {
-              background : '#E5FFDE',
+              background : '#D4DFD8',
               color : '#5C0029'
             },
             DayHover : {
-              background : '#5C0029',
+              background : '#648A73',
               color : '#ffffff',
               transform : 'scale(1.1) translateY(-10%)',
               boxShadow : '0 2px 4px rgba(0, 0, 0, 0.4)'

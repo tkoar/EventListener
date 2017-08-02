@@ -35,11 +35,18 @@ class NavBar extends Component {
     const { visible } = this.state
     return (
       <div>
-        <Button onClick={this.toggleVisibility}>Toggle Visibility</Button>
+        <Icon
+          style={{color: '#648A73'}}
+          className='menu-button'
+          size='huge'
+          name='add circle'
+          onMouseOver={this.toggleVisibility}
+          onClick={this.toggleVisibility}>
+        </Icon>
         <Sidebar.Pushable as={Segment}>
-          <Sidebar as={Menu} animation='uncover' width='wide' visible={visible} icon='labeled' vertical inverted>
+          <Sidebar style={{backgroundColor: '#383F51'}} as={Menu} animation='uncover' width='wide' visible={visible} icon='labeled' vertical inverted>
             <Menu.Item name='find'>
-              <Icon name='find' />
+              <Icon name='find' style={{color: '#AFBDDB'}} />
               Search
               <div className='text-margin' >
                 <Search />
@@ -47,25 +54,25 @@ class NavBar extends Component {
             </Menu.Item>
             <Link to='/events'>
               <Menu.Item name='home'>
-                <Icon name='home' />
+                <Icon name='home' style={{color: '#AFBDDB'}} />
                 Home
               </Menu.Item>
             </Link>
             <Link to='/myprofile'>
               <Menu.Item name='drivers license'>
-                <Icon name='drivers license' size='massive' />
+                <Icon name='drivers license' size='massive' style={{color: '#AFBDDB'}} />
                 My Profile
               </Menu.Item>
             </Link>
             <Menu.Item name='filter'>
-              <Icon name='filter' />
+              <Icon name='filter' style={{color: '#AFBDDB'}} />
               Filter by Friend
               <div className='text-margin'>
                 <SelectFriendComponent />
               </div>
             </Menu.Item>
             <Menu.Item name='filter'>
-              <Icon name='calendar' />
+              <Icon name='calendar' style={{color: '#AFBDDB'}} />
               Filter by Date
               <div className='text-margin'>
                 <Calendar />
@@ -74,14 +81,14 @@ class NavBar extends Component {
             {this.state.loggedIn &&
             <Link to='/' onClick={this.props.logout}>
               <Menu.Item name='id badge'>
-                <Icon name='id badge' />
+                <Icon name='id badge' style={{color: '#AFBDDB'}} />
                 Logout
               </Menu.Item>
             </Link>}
           </Sidebar>
-          <Sidebar.Pusher>
-            <Segment basic>
-              <div className="map-alignment">
+          <Sidebar.Pusher style={{backgroundColor: '#EFFEFF'}}>
+            <Segment basic >
+              <div className="map-alignment" >
                 <Switch>
                   <Route exact path='/events' component={MapComponent} />
                   <Route path='/events/:eventId' component={EventContainer} />

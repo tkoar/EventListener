@@ -45,7 +45,7 @@ class FriendProfile extends React.Component {
     let user = this.props.users.filter(u => u.id === parseInt(this.props.match.params.userId, 10))[0]
     return (user.events.map((el, i) => <List.Item key={i}>
         <Popup
-          trigger={<List.Icon id={el.id} onClick={this.addThisEvent} className='list-map-icon' name='add to calendar' size='huge' verticalAlign='middle' color='teal'></List.Icon>}
+          trigger={<List.Icon id={el.id} onClick={this.addThisEvent} className='list-map-icon' name='add to calendar' size='huge' verticalAlign='middle' style={{color: '#383F51'}}></List.Icon>}
           content='Click to add this event to your events!'
         />
         <List.Content>
@@ -65,7 +65,6 @@ class FriendProfile extends React.Component {
     return (user.friends.map((el, i) =>  <List.Item key={i}>
       <List.Icon size='big' verticalAlign='middle'><Image src={el.icon} avatar /></List.Icon>
       <List.Content>
-        {/*link is not working because the url is routing to users/events/:eventID instead of events/:eventID*/}
         <Link to={`/users/${el.id}`}>
           <List.Header as='a'><strong>Name:</strong> {el.name}</List.Header>
         </Link>
@@ -88,7 +87,7 @@ class FriendProfile extends React.Component {
   renderFriendsListButton = () => {
     let user = this.props.users.filter(u => u.id === parseInt(this.props.match.params.userId, 10))[0]
     return (
-      <Button onClick={this.showEventsFriends} name="users" fluid color="teal">
+      <Button onClick={this.showEventsFriends} name="users" fluid style={{backgroundColor: '#383F51', color: '#fff'}}>
         <Icon name="users"/>Show {user.name}'s Friends
       </Button>
     )
@@ -97,7 +96,7 @@ class FriendProfile extends React.Component {
   renderEventsListButton = () => {
     let user = this.props.users.filter(u => u.id === parseInt(this.props.match.params.userId, 10))[0]
     return (
-      <Button onClick={this.showEventsFriends} name="events" fluid color="blue">
+      <Button onClick={this.showEventsFriends} name="events" fluid style={{backgroundColor: '#89BD9E', color: '#fff'}}>
         <Icon name="events"></Icon>Show {user.name}'s events
       </Button>
     )
@@ -113,7 +112,7 @@ class FriendProfile extends React.Component {
       ownProfile = (userPageId === this.props.currentUser.id) ? true : false
     }
     if (!alreadyFriends && !ownProfile) {
-      return (<Card.Content extra><Button fluid color="blue" onClick={this.handleAddFriend}><Icon name="add user"></Icon>Add {user.name} to your Friends</Button></Card.Content>)
+      return (<Card.Content extra><Button fluid style={{color: '#383F51', color: '#fff'}} onClick={this.handleAddFriend}><Icon name="add user"></Icon>Add {user.name} to your Friends</Button></Card.Content>)
     }
   }
 

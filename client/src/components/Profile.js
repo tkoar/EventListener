@@ -41,7 +41,7 @@ class Profile extends React.Component {
     if (this.props.currentUser.events){
       return (
         this.props.currentUser.events.map(el =>  <List.Item>
-        <List.Icon name='calendar' size='huge' verticalAlign='middle' color='teal' />
+        <List.Icon name='calendar' size='huge' verticalAlign='middle' style={{color: '#383F51'}} />
         <List.Content>
           <Link to={`events/${el.id}`}>
           <List.Header as='a'><strong>Name:</strong> {el.name}</List.Header></Link>

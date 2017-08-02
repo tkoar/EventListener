@@ -55,7 +55,7 @@ class EventContainer extends React.Component {
           </List.Description>
         </List.Content>
         <List.Content className='list-padding'>
-          {this.props.currentUser.id === currentEvent.owner_id ? <Button fluid color='red' id={currentEvent.id} onClick={this.handleDeleteEvent}><Icon name="remove from calendar"></Icon>Remove {currentEvent.name}</Button> : <div></div>}
+          {this.props.currentUser.id === currentEvent.owner_id ? <Button fluid style={{backgroundColor: '#931621', color: '#fff'}} id={currentEvent.id} onClick={this.handleDeleteEvent}><Icon name="remove from calendar"></Icon>Remove {currentEvent.name}</Button> : <div></div>}
         </List.Content>
     </List.Item>
     )

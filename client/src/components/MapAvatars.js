@@ -28,7 +28,7 @@ class MapAvatars extends React.Component {
               trigger={<img alt="piggo" className="piggo" style={{ height: 'auto', width: '42px'}} src={this.props.owner_icon}></img>}
               hoverable
               inverted>
-              <Icon color='teal' name='calendar'></Icon>{this.props.name}
+              <Icon style={{color: '#84DCCF'}} name='calendar'></Icon>{this.props.name}
               <br></br>
               <Icon color='blue' name='map pin'></Icon>{this.props.city}
               <br></br>
