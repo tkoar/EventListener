@@ -156,49 +156,65 @@ $font-family-default: 'Helvetica', sans-serif;
 }
 
 .button-login:hover {
-  /*transform: scale(1.5);*/
-  -ms-animation:wiggle 3s;
-  -moz-animation:wiggle 3s;
-  -webkit-animation:wiggle .75s;
-  animation:wiggle .75s;
+  -ms-animation:wiggle 2s infinite;
+  -moz-animation:wiggle 2s infinite;
+  -webkit-animation:wiggle 2s infinite;
+  animation:wiggle 2s infinite;
 }
 
 @-ms-keyframes wiggle {
-  0% { -ms-transform: rotate(3deg); }
-  20% { -ms-transform: rotate(-3deg); }
-  40% { -ms-transform: scale(2) rotate(3deg); }
-  60% { -ms-transform: scale(2) rotate(-3deg); }
-  80% { -ms-transform: rotate(3deg); }
-  100% { -ms-transform: rotate(-3deg); }
+  0% { -ms-transform: scale(1.5) rotate(7deg); }
+  10% { -ms-transform: scale(1.5) rotate(-7deg); }
+  20% { -ms-transform: scale(1.5) rotate(7deg); }
+  30% { -ms-transform: scale(1.5) rotate(-7deg); }
+  40% { -ms-transform: scale(1.5) rotate(7deg); }
+  50% { -ms-transform: scale(1.5) rotate(-7deg); }
+  60% { -ms-transform: scale(1.5) rotate(7deg); }
+  70% { -ms-transform: scale(1.5) rotate(-7deg); }
+  80% { -ms-transform: scale(1.5) rotate(7deg); }
+  90% { -ms-transform: scale(1.5) rotate(-7deg); }
+  100% { -ms-transform: scale(1.5) rotate(7deg); }
 }
 
 @-moz-keyframes wiggle {
-  0% { -moz-transform: rotate(7deg); }
-  20% { -moz-transform: rotate(-7deg); }
-  40% { -moz-transform: rotate(7deg); }
-  50% { -moz-transform: rotate(-7deg); }
-  60% { -moz-transform: rotate(7deg); }
-  80% { -moz-transform: rotate(-7deg); }
-  100% { -moz-transform: rotate(7deg); }
+  0% { -moz-transform: scale(1.5) rotate(7deg); }
+  10% { -moz-transform: scale(1.5) rotate(-7deg); }
+  20% { -moz-transform: scale(1.5) rotate(7deg); }
+  30% { -moz-transform: scale(1.5) rotate(-7deg); }
+  40% { -moz-transform: scale(1.5) rotate(7deg); }
+  50% { -moz-transform: scale(1.5) rotate(-7deg); }
+  60% { -moz-transform: scale(1.5) rotate(7deg); }
+  70% { -moz-transform: scale(1.5) rotate(-7deg); }
+  80% { -moz-transform: scale(1.5) rotate(7deg); }
+  90% { -moz-transform: scale(1.5) rotate(-7deg); }
+  100% { -moz-transform: scale(1.5) rotate(7deg); }
 }
 
 @-webkit-keyframes wiggle {
-  0% { -webkit-transform: rotate(7deg); }
-  20% { -webkit-transform: scale(1.5) rotate(-7deg); }
+  0% { -webkit-transform: scale(1.5) rotate(7deg); }
+  10% { -webkit-transform: scale(1.5) rotate(-7deg); }
+  20% { -webkit-transform: scale(1.5) rotate(7deg); }
+  30% { -webkit-transform: scale(1.5) rotate(-7deg); }
   40% { -webkit-transform: scale(1.5) rotate(7deg); }
   50% { -webkit-transform: scale(1.5) rotate(-7deg); }
   60% { -webkit-transform: scale(1.5) rotate(7deg); }
-  80% { -webkit-transform: scale(1.5) rotate(-7deg); }
-  100% { -webkit-transform: rotate(7deg); }
+  70% { -webkit-transform: scale(1.5) rotate(-7deg); }
+  80% { -webkit-transform: scale(1.5) rotate(7deg); }
+  90% { -webkit-transform: scale(1.5) rotate(-7deg); }
+  100% { -webkit-transform: scale(1.5) rotate(7deg); }
 }
 @keyframes wiggle {
-  0% { transform: rotate(7deg); }
-  20% { transform: scale(1.5) rotate(-7deg); }
+  0% { transform: scale(1.5) rotate(7deg); }
+  10% { transform: scale(1.5) rotate(-7deg); }
+  20% { transform: scale(1.5) rotate(7deg); }
+  30% { transform: scale(1.5) rotate(-7deg); }
   40% { transform: scale(1.5) rotate(7deg); }
   50% { transform: scale(1.5) rotate(-7deg); }
   60% { transform: scale(1.5) rotate(7deg); }
-  80% { transform: scale(1.5) rotate(-7deg); }
-  100% { transform: rotate(7deg); }
+  70% { transform: scale(1.5) rotate(-7deg); }
+  80% { transform: scale(1.5) rotate(7deg); }
+  90% { transform: scale(1.5) rotate(-7deg); }
+  100% { transform: scale(1.5) rotate(7deg); }
 }
 
 

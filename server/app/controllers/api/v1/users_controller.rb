@@ -40,13 +40,15 @@ module Api
 
       def update
         user = User.find(params[:userId])
-        user.icon ||= params[:url]
-        user.bio ||= params[:bio]
+        if params[:url]
+          user.icon = params[:url]
+        elsif params[:bio]
+          user.bio = params[:bio]
+        end
         user.save
       end
 
       def update_users
-        byebug
         current_user = User.find(params[:friendAdder_id])
         added_user = User.find(params[:addedFriend_id])
         current_user.friends << added_user
