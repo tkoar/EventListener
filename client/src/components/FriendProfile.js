@@ -12,8 +12,7 @@ class FriendProfile extends React.Component {
 
   state = {
     eventsList: true,
-    friendList: false,
-    editBio: false,
+    friendList: false
   }
 
   handleAddFriend = (event) => {

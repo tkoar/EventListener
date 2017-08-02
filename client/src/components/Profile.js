@@ -4,7 +4,7 @@ import Loader from '../components/Loader'
 import EditIconForm from './EditIconForm'
 import EditBioForm from './EditBioForm'
 import { Link } from 'react-router-dom'
-import { Card, List, Image, Icon, Grid } from 'semantic-ui-react'
+import { Card, List, Image, Icon, Grid, Button } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actions from '../actions'
@@ -13,7 +13,8 @@ const { updateUserIconBackEnd, updateUserIconFrontEnd, updateEventIconFrontEnd, 
 class Profile extends React.Component {
 
   state = {
-    editIcon: false
+    eventsList: true,
+    friendList: false
   }
 
   updateIcon = (newUrl) => {
@@ -37,6 +38,22 @@ class Profile extends React.Component {
     this.props.updateUserBioBackEnd(updatedBio)
   }
 
+  makeFriendList = () => {
+    let user = this.props.currentUser
+    return (user.friends.map((el, i) =>  <List.Item key={i}>
+      <List.Icon size='big' verticalAlign='middle'><Image src={el.icon} avatar /></List.Icon>
+      <List.Content>
+        <Link to={`/users/${el.id}`}>
+          <List.Header as='a'><strong>Name:</strong> {el.name}</List.Header>
+        </Link>
+        <List.Description>City: {el.current_city}</List.Description>
+        <List.Description>Email: {el.email}</List.Description>
+        <List.Description>Bio: {el.bio}</List.Description>
+      </List.Content>
+    </List.Item>)
+    )
+  }
+
   makeEventList = () => {
     if (this.props.currentUser.events){
       return (
@@ -51,6 +68,32 @@ class Profile extends React.Component {
       </List.Item>)
       )
     }
+  }
+
+  showEventsFriends = (event) => {
+    if (event.target.name === 'events') {
+      this.setState({eventsList: true, friendList: false})
+    } else if (event.target.name === 'users') {
+      this.setState({eventsList: false, friendList: true})
+    }
+  }
+
+  renderFriendsListButton = () => {
+    let user = this.props.currentUser
+    return (
+      <Button onClick={this.showEventsFriends} name="users" fluid style={{backgroundColor: '#383F51', color: '#fff'}}>
+        <Icon name="users"/>Show {user.name}'s Friends
+      </Button>
+    )
+  }
+
+  renderEventsListButton = () => {
+    let user = this.props.currentUser
+    return (
+      <Button onClick={this.showEventsFriends} name="events" fluid style={{backgroundColor: '#89BD9E', color: '#fff'}}>
+        <Icon name="events"></Icon>Show {user.name}'s events
+      </Button>
+    )
   }
 
   render() {
@@ -74,8 +117,8 @@ class Profile extends React.Component {
                       <Card.Description>{this.props.currentUser.bio}</Card.Description>
                     </Card.Content>
                     <Card.Content extra>
-                      <a>
-                        <Icon name='user' />
+                      <a name="users" onClick={this.showEventsFriends}>
+                        <Icon name='users'/>
                          {this.props.currentUser.friends.length} Friends
                       </a>
                     </Card.Content>
@@ -86,7 +129,8 @@ class Profile extends React.Component {
                 </Grid.Column>
                 <Grid.Column className="scrolling-page" width={12}>
                   <div>
-                    <List divided relaxed>{this.makeEventList()}</List>
+                    {this.state.eventsList ? this.renderFriendsListButton() : this.renderEventsListButton()}
+                    <List divided relaxed>{this.state.eventsList ? this.makeEventList() : this.makeFriendList()}</List>
                   </div>
                 </Grid.Column>
               </Grid.Row>
