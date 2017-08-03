@@ -143,7 +143,6 @@ class Profile extends React.Component {
 }
 
 function mapStateToProps (state) {
-  console.log("Profile", state.usersReducer.currentUser, state);
   return {currentUser: state.usersReducer.currentUser, events: state.events.events}
 }
 

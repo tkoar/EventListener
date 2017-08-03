@@ -27,8 +27,6 @@ class RouterComponent extends React.Component {
   }
 
   componentWillMount() {
-    // this.props.fetchEvents()
-    // this.props.allUsers()
     this.authorize()
   }
 
@@ -87,7 +85,6 @@ class RouterComponent extends React.Component {
      if (this.state.auth.loggedIn) {
        if (!this.props.history)
          return <Redirect to={'/events'}/>
-       console.log(this.props.history.location.pathname)
        return <Redirect to={this.props.history.location.pathname}/>
      } else {
        <Redirect to={'/login'}/>

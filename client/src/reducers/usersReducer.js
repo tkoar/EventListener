@@ -15,7 +15,6 @@ export default function userReducer(state={loading: false, users: [], currentUse
       let currentUserSliceIndex = state.users.indexOf(action.payload.currentUser)
       let newFriendSliceIndex = state.users.indexOf(action.payload.newFriend)
       let currentUserObj = action.payload.currentUser.friends = [...action.payload.currentUser.friends, action.payload.newFriend]
-      debugger
       let newFriendObj = action.payload.newFriend.friends = [...action.payload.newFriend.friends, action.payload.currentUser]
       let updatedUsers = state.users
       updatedUsers.slice(currentUserSliceIndex, 1, currentUserObj)
