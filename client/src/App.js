@@ -79,16 +79,15 @@ class App extends Component {
       auth: {loggedIn: false, user: {}}
     })
   }
-
   render() {
-    console.log(this.props.currentUser, this.props.events)
+    //push history instead of redirect
     return (
       <BrowserRouter>
         <div>
-          <div>{this.state.auth.loggedIn && <Redirect to='/events'/>}</div>
+          <div>{(this.state.auth.loggedIn && this.props.history) && <Redirect to={this.props.history.location.pathname}/>}</div>
           <Switch>
-            <Route exact path='/' render={() => <div className='scrolling-background' ><LoginComponent response={this.responseFacebook}/></div>} />
-            <div className='parallax'><Route path='/' render={() => <NavBar logout={this.logout} user={this.props.currentUser} />}></Route></div>
+            <Route exact path='/login' render={() => <div className='scrolling-background' ><LoginComponent response={this.responseFacebook}/></div>} />
+            <div className='parallax'><Route path='/' render={() => <NavBar logout={this.logout} user={this.props.currentUser} loggedIn={this.state.loggedIn}/>}></Route></div>
           </Switch>
         </div>
       </BrowserRouter>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Input, TextArea, Button } from 'semantic-ui-react'
+import { Form, TextArea, Button } from 'semantic-ui-react'
 
 class Comment extends React.Component {
 

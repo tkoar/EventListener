@@ -3,7 +3,7 @@ import '../semantic/dist/semantic.css'
 import Loader from '../components/Loader'
 import CommentComponent from '../components/CommentComponent'
 import { Link } from 'react-router-dom'
-import { Grid, Icon, List, Popup, Button, Image, Comment, Header } from 'semantic-ui-react'
+import { Grid, Icon, List, Popup, Button, Comment, Header } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actions from '../actions'
@@ -51,7 +51,8 @@ class EventContainer extends React.Component {
   getCommentList = () => {
     const event = this.props.events.filter(el => el.id.toString() === this.props.match.params.eventId)[0]
     const date = 'Just now!'
-    const allComments = event.comments.map((el, i) => <Comment>
+    const allComments = event.comments.map((el, i) => <Comment.Group>
+      <Comment>
         <Link to={`/users/${el.user_id}`}>
           <Comment.Avatar size="big" src={el.icon} style={{margin: "10px"}}/>
         </Link>
@@ -64,7 +65,8 @@ class EventContainer extends React.Component {
           </Comment.Metadata>
           <Comment.Text>{el.text}</Comment.Text>
         </Comment.Content>
-      </Comment>)
+      </Comment>
+    </Comment.Group>)
     return allComments
   }
 
@@ -108,10 +110,8 @@ class EventContainer extends React.Component {
             />}
           </List.Content>
         </List.Item>
-        <Comment.Group>
           <Header as='h3' dividing>Comments:</Header>
           {this.getCommentList()}
-        </Comment.Group>
       </div>
     )
   }

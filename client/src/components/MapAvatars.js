@@ -20,7 +20,7 @@ class MapAvatars extends React.Component {
   render() {
     const startDate = new Date(this.props.start_time).toDateString()
     return (
-      <div style={{zIndex: `${1000 - this.props.id}`}}>
+      <div className='map-avatars'>
         <Link to={`/events/${this.props.id}`}>
           <div style={{position: 'relative', top: -20, left: -30}}>
             <Popup

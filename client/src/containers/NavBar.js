@@ -9,7 +9,7 @@ import FriendProfile from '../components/FriendProfile'
 import EventContainer from './EventContainer'
 import Calendar from '../components/CalendarComponent'
 import SelectFriendComponent from '../components/SelectFriendComponent'
-import { Sidebar, Segment, Button, Menu, Icon } from 'semantic-ui-react'
+import { Sidebar, Segment, Menu, Icon } from 'semantic-ui-react'
 
 class NavBar extends Component {
   state = {
@@ -20,7 +20,7 @@ class NavBar extends Component {
   componentWillReceiveProps(nextProps) {
     Auth.currentUser().then(res => {
       if (res.error) {
-        nextProps.history.push(`/`)
+        nextProps.history.push(`/login`)
       } else {
         this.setState({loggedIn: true})
       }
@@ -32,6 +32,7 @@ class NavBar extends Component {
   toggleVisibility = () => this.setState({ visible: !this.state.visible })
 
   render() {
+    
     const { visible } = this.state
     return (
       <div>
@@ -79,7 +80,7 @@ class NavBar extends Component {
               </div>
             </Menu.Item>
             {this.state.loggedIn &&
-            <Link to='/' onClick={this.props.logout}>
+            <Link to='/login' onClick={this.props.logout}>
               <Menu.Item name='id badge'>
                 <Icon name='id badge' style={{color: '#AFBDDB'}} />
                 Logout

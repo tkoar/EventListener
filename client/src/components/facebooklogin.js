@@ -1,11 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
 import FacebookLogin from 'react-facebook-login';
+import PropTypes from 'prop-types'
 import '../App.css'
 var google_geocoding = require('google-geocoding')
 
-
 export default class LoginComponent extends React.Component {
+
+  static contextTypes = {
+    router: PropTypes.object
+  }
 
   geocodeUserLocation = (response) => {
       let location = response.location.name
@@ -22,7 +25,7 @@ export default class LoginComponent extends React.Component {
 
   render() {
     return (
-      <div className="login-div ">
+      <div className="login-div">
         <FacebookLogin
           cssClass='button-login'
           icon="fa-facebook"

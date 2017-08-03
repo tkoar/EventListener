@@ -24,11 +24,15 @@
   border-radius: 100%;
 }
 
+.map-avatars {
+  z-index: 99
+}
+
 .piggo:hover {
+  /*z-index: 99;*/
   animation: colorShiftImg 3s;
   opacity: 1;
   transform: scale(2) rotate(-360deg);
-  z-index: 99
 }
 
 .menu-button {
@@ -94,11 +98,11 @@
 .scrolling-background {
   position:fixed;
   background:url("http://cdn-image.travelandleisure.com/sites/default/files/styles/1600x1000/public/1444253482/DG2015-new-york.jpg?itok=neFmsUY1");
-  -webkit-animation:200s scroll infinite linear;
-  -moz-animation:200s scroll infinite linear;
-  -o-animation:200s scroll infinite linear;
-  -ms-animation:200s scroll infinite linear;
-  animation:200s scroll infinite linear;
+  -webkit-animation:300s scroll infinite linear;
+  -moz-animation:300s scroll infinite linear;
+  -o-animation:300s scroll infinite linear;
+  -ms-animation:300s scroll infinite linear;
+  animation:300s scroll infinite linear;
   top:0;
   left:0;
   width:100%;
