@@ -23,20 +23,38 @@ export default class LoginComponent extends React.Component {
     })
   }
 
+  flyingPigs = () => {
+    let piggies = []
+    for (let i=0; i<3; i++) {
+      let top = Math.random()*100
+      piggies.push(<div className='flying-pig-bottom' style={{top: `${top}%`}}></div>)
+    }
+    for (let i=0; i<3; i++) {
+      let top = Math.random()*100
+      piggies.push(<div className='flying-pig-top' style={{top: `${top}%`}}></div>)
+    }
+    return piggies
+  }
+
   render() {
     return (
-      <div className="login-div">
-        <FacebookLogin
-          cssClass='button-login'
-          icon="fa-facebook"
-          textButton="  Login"
-          //need to set appId to be an environment variable
-          autoload={true}
-          appId='301958890275001'
-          fields="name,email,picture,events,location"
-          scope="public_profile,user_events,rsvp_event,email,user_location"
-          callback={this.geocodeUserLocation}
-        />
+      <div>
+        <div>
+          {/* {this.flyingPigs()} */}
+        </div>
+        <div className="login-div">
+          <FacebookLogin
+            cssClass='button-login'
+            icon="fa-facebook"
+            textButton="  Login"
+            //need to set appId to be an environment variable
+            autoload={true}
+            appId='301958890275001'
+            fields="name,email,picture,events,location"
+            scope="public_profile,user_events,rsvp_event,email,user_location"
+            callback={this.geocodeUserLocation}
+          />
+        </div>
       </div>
     )
   }

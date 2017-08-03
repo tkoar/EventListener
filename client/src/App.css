@@ -98,11 +98,11 @@
 .scrolling-background {
   position:fixed;
   background:url("http://cdn-image.travelandleisure.com/sites/default/files/styles/1600x1000/public/1444253482/DG2015-new-york.jpg?itok=neFmsUY1");
-  -webkit-animation:300s scroll infinite linear;
-  -moz-animation:300s scroll infinite linear;
-  -o-animation:300s scroll infinite linear;
-  -ms-animation:300s scroll infinite linear;
-  animation:300s scroll infinite linear;
+  -webkit-animation:800s scroll infinite linear;
+  -moz-animation:800s scroll infinite linear;
+  -o-animation:800s scroll infinite linear;
+  -ms-animation:800s scroll infinite linear;
+  animation:800s scroll infinite linear;
   top:0;
   left:0;
   width:100%;
@@ -219,6 +219,57 @@ $font-family-default: 'Helvetica', sans-serif;
   80% { transform: scale(1.5) rotate(7deg); }
   90% { transform: scale(1.5) rotate(-7deg); }
   100% { transform: scale(1.5) rotate(7deg); }
+}
+
+.flying-pig-bottom {
+  position: absolute;
+  z-index: 10;
+  animation: linear;
+  animation-duration: 10s;
+  animation-name: flying-pig-bottom;
+  animation-iteration-count: infinite;
+  height: 40px;
+  content:url('https://s-media-cache-ak0.pinimg.com/originals/62/6c/cc/626ccc354c18074e99b0b2ecbd84f3b9.png');
+}
+
+.flying-pig-top {
+  position: absolute;
+  z-index: 10;
+  animation: linear;
+  animation-duration: 10s;
+  animation-name: flying-pig-top;
+  animation-iteration-count: infinite;
+  height: 40px;
+  content:url('https://s-media-cache-ak0.pinimg.com/originals/62/6c/cc/626ccc354c18074e99b0b2ecbd84f3b9.png');
+}
+
+
+@keyframes flying-pig-bottom {
+  0% { left: 0%;}
+  10% {left: 10%; }
+  20% {left: 25%; }
+  30% {left: 30%; }
+  40% {left: 27.5%; }
+  50% {left: 40%; }
+  60% {left: 55%; }
+  70% {left: 60%; }
+  80% {left: 95%; }
+  90% {left: 90%; }
+  100% { left: 100%; top: 100%; }
+}
+
+@keyframes flying-pig-top {
+  0% { left: 100%;}
+  10% {left: 90%; }
+  20% {left: 85%; }
+  30% {left: 70%; }
+  40% {left: 65%; }
+  50% {left: 50%; }
+  60% {left: 65%; }
+  70% {left: 40%; }
+  80% {left: 35%; }
+  90% {left: 20%; }
+  100% { left: 0%; top: 0%; }
 }
 
 

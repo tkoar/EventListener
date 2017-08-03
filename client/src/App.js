@@ -22,61 +22,10 @@ class App extends Component {
     }
   }
 
-
   componentWillMount() {
     this.props.fetchEvents()
     this.props.allUsers()
   }
-  //
-  // authorize() {
-  //   Auth.currentUser().then(res => {
-  //     this.props.currentUser(res)
-  //     if (!res.error) {
-  //       this.setState({
-  //         auth: {
-  //           loggedIn: true,
-  //           user: res
-  //         }
-  //       })
-  //     }
-  //   })
-  // }
-  //
-  //
-  // responseFacebook = (location, response) => {
-  //   let createUser = {user: response, location: location}
-  //   fetch('http://localhost:3000/api/v1/users', {
-  //     method: 'POST',
-  //     headers: {
-  //       'content-type': 'application/json',
-  //       'accept': 'application/json'
-  //     },
-  //     body: JSON.stringify(createUser)
-  //   })
-  //   this.login(response)
-  // }
-  //
-  // login = (loginParams) => {
-  //     Auth.login(loginParams)
-  //     .then(user => {
-  //       if (!user.error) {
-  //         this.setState({
-  //           loggedIn: true,
-  //           auth: {loggedIn: true, user: user}
-  //         })
-  //         localStorage.setItem("jwt", user.jwt)
-  //
-  //       }
-  //     })
-  //   }
-  //
-  // logout = () => {
-  //   localStorage.removeItem("jwt")
-  //   this.setState({
-  //     loggedIn: true,
-  //     auth: {loggedIn: false, user: {}}
-  //   })
-  // }
 
   render() {
     return (
