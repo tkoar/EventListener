@@ -21,13 +21,13 @@ class NavBar extends Component {
     Auth.currentUser().then(res => {
       if (res.error) {
         nextProps.history.push(`/`)
+      } else {
+        this.setState({loggedIn: true})
       }
     })
   }
 
-  componentWillMount() {
-    localStorage.getItem('jwt') ? this.setState({loggedIn: true}) : this.setState({loggedIn: false})
-  }
+
 
   toggleVisibility = () => this.setState({ visible: !this.state.visible })
 
@@ -78,7 +78,7 @@ class NavBar extends Component {
                 <Calendar />
               </div>
             </Menu.Item>
-            {localStorage.getItem('jwt') &&
+            {this.state.loggedIn &&
             <Link to='/' onClick={this.props.logout}>
               <Menu.Item name='id badge'>
                 <Icon name='id badge' style={{color: '#AFBDDB'}} />
