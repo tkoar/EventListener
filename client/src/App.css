@@ -63,7 +63,7 @@
 
 .parallax {
   background-image: url("http://cdn-image.travelandleisure.com/sites/default/files/styles/1600x1000/public/1444253482/DG2015-new-york.jpg?itok=neFmsUY1");
-  height: 950px;
+  height: 1200px;
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
@@ -72,12 +72,13 @@
 
 .scrolling-background {
   position:fixed;
-  background:url("http://cdn-image.travelandleisure.com/sites/default/files/styles/1600x1000/public/1444253482/DG2015-new-york.jpg?itok=neFmsUY1");
+  background:url("http://cdn-image.travelandleisure.com/sites/default/files/styles/1600x1000/public/1444253482/DG2015-new-york.jpg?itok=neFmsUY1") no-repeat center center;
   /*-webkit-animation:75s scroll infinite linear;
   -moz-animation:75s scroll infinite linear;
   -o-animation:75s scroll infinite linear;*/
   /*-ms-animation: 200s moveNYC linear;*/
   /*animation:200s moveNYC linear;*/
+  background-size: cover;
   opacity: 0;
   animation: fadeIn 5s forwards, moveNYC 40s ease-out forwards;
   left: -6%;

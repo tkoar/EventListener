@@ -102,6 +102,9 @@ class EventContainer extends React.Component {
             <List.Description>
               <strong>Description: </strong>{currentEvent.description}
             </List.Description>
+            <List.Description>
+              <a href={`https://www.facebook.com/events/${currentEvent.fb_event_id}`} target="_blank">Check this out on Facebook</a>
+            </List.Description>
           </List.Content>
           <List.Content className='list-padding'>
             {this.props.currentUser.id === currentEvent.owner_id && <Popup
