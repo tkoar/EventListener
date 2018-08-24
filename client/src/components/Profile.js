@@ -104,7 +104,7 @@ class Profile extends React.Component {
             <Grid>
               <Grid.Row>
                 <Grid.Column className="scrolling-page" width={4}>
-                  <Card fluid color={'#5C0029'}>
+                  <Card fluid syle={{backgroundColor:'#5C0029'}}>
                     <Card.Content extra>
                       <EditIconForm updateIcon={this.updateIcon}/>
                     </Card.Content>

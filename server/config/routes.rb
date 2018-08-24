@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       resources :locations
       patch '/events', to: 'events#update'
       patch '/friendship', to: 'friendship#update'
+      delete '/unfriendship', to: 'friendship#destroy'
     end
   end
 end

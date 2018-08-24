@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 
 class MapComponent extends React.Component {
 
-  pertinentEvents = (relevantIds) => {
+  usersEvents = (relevantIds) => {
     let events = []
     this.props.events.forEach((el, i) => {
       if (relevantIds.includes(el.owner_id)) {
@@ -26,7 +26,7 @@ class MapComponent extends React.Component {
       relevantIds.push(this.props.currentUser.id)
     }
 
-    let filteredEvents = this.pertinentEvents(relevantIds)
+    let filteredEvents = this.usersEvents(relevantIds)
     let calendarStartDate = this.props.eventsRange.startDate
     let calendarEndDate = this.props.eventsRange.endDate
 
@@ -56,7 +56,7 @@ class MapComponent extends React.Component {
     return (
       isNaN(lat) ? <Loader/> :
       <GoogleMapReact
-        key='AIzaSyDXPH2k0zPWnw86gLR7DKbWGN9873fp308'
+        bootstrapURLKeys={{key: 'AIzaSyDXPH2k0zPWnw86gLR7DKbWGN9873fp308'}}
         center={realCenter}
         defaultZoom={13}>
           {myFriendsAvatars}

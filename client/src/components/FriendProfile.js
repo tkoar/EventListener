@@ -6,7 +6,7 @@ import {Button, Card, List, Grid, Image, Icon, Popup } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actions from '../actions'
-const {addFriendFrontEnd, addFriendBackEnd, addEventFrontEnd, addEventBackEnd} = actions
+const {addFriendFrontEnd, addFriendBackEnd, addEventFrontEnd, addEventBackEnd, removeEventBackEnd, removeEventFrontEnd, removeFriendFrontEnd, removeFriendBackEnd} = actions
 
 class FriendProfile extends React.Component {
 
@@ -21,6 +21,14 @@ class FriendProfile extends React.Component {
     event.preventDefault()
     this.props.addFriendFrontEnd(friendObj)
     this.props.addFriendBackEnd(friendObj)
+  }
+
+  handleDeleteFriend = (event) => {
+    let user = this.props.users.filter(u => u.id === parseInt(this.props.match.params.userId, 10))[0]
+    let friendObj = {currentUser: this.props.currentUser, removeFriend: user}
+    event.preventDefault()
+    this.props.removeFriendBackEnd(friendObj)
+    // this.props.removeFriendFrontEnd(friendObj)
   }
 
   addThisEvent = (event) => {
@@ -111,7 +119,9 @@ class FriendProfile extends React.Component {
       ownProfile = (userPageId === this.props.currentUser.id) ? true : false
     }
     if (!alreadyFriends && !ownProfile) {
-      return (<Card.Content extra><Button fluid style={{backgroundColor: '#383F51', color: '#fff'}} onClick={this.handleAddFriend}><Icon name="add user"></Icon>Add {user.name} to your Friends</Button></Card.Content>)
+      return (<Card.Content extra><Button fluid style={{backgroundColor: '#383F51', color: '#fff'}} onClick={this.handleAddFriend}><Icon name="add friend"></Icon>Add {user.name} to your Friends</Button></Card.Content>)
+    } else if (alreadyFriends && !ownProfile) {
+      return (<Card.Content extra><Button fluid style={{backgroundColor: '#383F51', color: '#fff'}} onClick={this.handleDeleteFriend}><Icon name="remove friend"></Icon>Remove {user.name} from your Friends</Button></Card.Content>)
     }
   }
 
@@ -157,11 +167,11 @@ class FriendProfile extends React.Component {
 }
 
 function mapStateToProps (state) {
-  return {users: state.usersReducer.users, userProfile: state.usersReducer.userProfile, currentUser: state.usersReducer.currentUser, addEventFrontEnd: state.events.addEventFrontEnd, addEventBackEnd: state.events.addEventBackEnd}
+  return {users: state.usersReducer.users, userProfile: state.usersReducer.userProfile, currentUser: state.usersReducer.currentUser}
 }
 
 function mapDispatchToProps (dispatch) {
-  return bindActionCreators({addFriendFrontEnd: addFriendFrontEnd, addFriendBackEnd: addFriendBackEnd, addEventFrontEnd: addEventFrontEnd, addEventBackEnd: addEventBackEnd}, dispatch)
+  return bindActionCreators({addFriendFrontEnd: addFriendFrontEnd, addFriendBackEnd: addFriendBackEnd, addEventFrontEnd: addEventFrontEnd, addEventBackEnd: addEventBackEnd, removeFriendFrontEnd: removeFriendFrontEnd, removeFriendBackEnd: removeFriendBackEnd}, dispatch)
 }
 
 

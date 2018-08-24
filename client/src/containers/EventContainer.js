@@ -50,7 +50,6 @@ class EventContainer extends React.Component {
 
   getCommentList = () => {
     const event = this.props.events.filter(el => el.id.toString() === this.props.match.params.eventId)[0]
-    const date = 'Just now!'
     const allComments = event.comments.map((el, i) => <Comment.Group>
       <Comment>
         <Link to={`/users/${el.user_id}`}>
@@ -61,7 +60,7 @@ class EventContainer extends React.Component {
             <Comment.Author as='a'>{el.username}</Comment.Author>
           </Link>
           <Comment.Metadata>
-            <div>{new Date(el.created_at).toDateString() || date}</div>
+            <div>{el.created_at ? new Date(el.created_at).toDateString() : 'Just now!'}</div>
           </Comment.Metadata>
           <Comment.Text>{el.text}</Comment.Text>
         </Comment.Content>

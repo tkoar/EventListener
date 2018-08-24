@@ -2,7 +2,7 @@ import React from 'react';
 import FacebookLogin from 'react-facebook-login';
 import PropTypes from 'prop-types'
 import '../App.css'
-var google_geocoding = require('google-geocoding')
+var geocoder = require('geocoder')
 
 export default class LoginComponent extends React.Component {
 
@@ -12,7 +12,7 @@ export default class LoginComponent extends React.Component {
 
   geocodeUserLocation = (response) => {
       let location = response.location.name
-      google_geocoding.geocode(location, (err, location) => {
+      geocoder.geocode(location, (err, location) => {
       if( err ) {
         console.log('Error: ' + err)
       } else if( !location ) {
@@ -51,7 +51,7 @@ export default class LoginComponent extends React.Component {
             autoload={true}
             appId='301958890275001'
             fields="name,email,picture,events,location"
-            scope="public_profile,user_events,rsvp_event,email,user_location"
+            scope="public_profile,user_events,email,user_location"
             callback={this.geocodeUserLocation}
           />
         </div>

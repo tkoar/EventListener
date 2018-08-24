@@ -20,6 +20,18 @@ export default function userReducer(state={loading: false, users: [], currentUse
       updatedUsers.slice(currentUserSliceIndex, 1, currentUserObj)
       updatedUsers.slice(newFriendSliceIndex, 1, newFriendObj)
       return Object.assign({}, state, {users: updatedUsers})
+    case 'REMOVING_FRIEND':
+      let user = action.payload.currentUser
+      let friend = action.payload.removeFriend
+      user.friends = user.friends.filter(f => f.id !== friend.id)
+      friend.friends = friend.friends.filter(f => f.id !== user.id)
+      let userIndex = state.users.indexOf(user)
+      let friendIndex = state.users.indexOf(friend)
+      let currentUsers = state.users
+      currentUsers.slice(userIndex, 1, user)
+      currentUsers.slice(friendIndex, 1, newFriendObj)
+      debugger
+      return Object.assign({}, state, {users: currentUsers})
     case 'UPDATING_ICON':
       return Object.assign({}, state, {currentUser: {...state.currentUser, icon: action.payload.url}})
     case 'UPDATING_BIO':

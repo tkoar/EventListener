@@ -1,19 +1,11 @@
-import axios from 'axios'
 import fetch from 'isomorphic-fetch';
-
-import {
-  AUTH_USER,
-  UNAUTH_USER,
-  AUTH_ERROR,
-  FETCH_MESSAGE
-} from './types'
 
 const ROOT_URL = 'http://localhost:3000/api/v1'
 
 export function fetchEvents(dispatch) {
   return function(dispatch) {
     dispatch({type: 'LOADING_EVENTS'})
-    return fetch('http://localhost:3000/api/v1/events')
+    return fetch(ROOT_URL + '/events')
       .then(res => res.json())
       .then(res => dispatch({type: 'FETCH_EVENTS', payload: res}))
   }
@@ -22,7 +14,7 @@ export function fetchEvents(dispatch) {
 export function allUsers(dispatch) {
   return function(dispatch) {
     dispatch({type: 'LOADING_USERS'})
-    return fetch('http://localhost:3000/api/v1/users')
+    return fetch(ROOT_URL + '/users')
       .then(res => res.json())
       .then(res => dispatch({type: 'ALL_USERS', payload: res}))
   }
@@ -31,7 +23,7 @@ export function allUsers(dispatch) {
 export function filterEvents(dispatch) {
   return function(dispatch) {
     dispatch({type: 'LOADING_EVENTS'})
-    return fetch('http://localhost:3000/api/v1/events')
+    return fetch(ROOT_URL + '/events')
       .then(res => res.json())
       .then(res => dispatch({type: 'FETCH_EVENTS', payload: res}))
   }
@@ -47,7 +39,7 @@ export function updateUserIconFrontEnd(updateObj) {
 
 export function updateUserIconBackEnd(updateObj) {
   return {type: 'FETCHING', payload:
-      fetch('http://localhost:3000/api/v1/users/' + updateObj.userId, {
+      fetch(ROOT_URL + '/users/' + updateObj.userId, {
       method: 'PATCH',
       headers: {
         "content-type": "application/json",
@@ -79,7 +71,7 @@ export function updateEventIconBackEnd(updateObj) {
   }).filter(el => !!el)
   let eventObj = {events: updatedEvents}
   return {type: 'POSTING_EVENTS', payload:
-      fetch('http://localhost:3000/api/v1/events', {
+      fetch(ROOT_URL + '/events', {
       method: 'PATCH',
       headers: {
         "content-type": "application/json",
@@ -98,14 +90,36 @@ export function addFriendFrontEnd(friendObj) {
   return ({type: 'UPDATING_FRIENDS', payload: friendObj})
 }
 
+export function removeFriendFrontEnd(friendObj) {
+  return ({type: 'REMOVING_FRIEND', payload: friendObj})
+
+}
+
 export function addFriendBackEnd(friendObj) {
   const updateParameters = {
     addedFriend_id: friendObj.newFriend.id,
     friendAdder_id: friendObj.currentUser.id
   }
   return {type: 'FETCHING', payload:
-      fetch('http://localhost:3000/api/v1/friendship' , {
+      fetch(ROOT_URL + '/friendship' , {
       method: 'PATCH',
+      headers: {
+        "content-type": "application/json",
+        'accept': "application/json"
+      },
+      body: JSON.stringify(updateParameters)
+    })
+  }
+}
+
+export function removeFriendBackEnd(friendObj) {
+  const updateParameters = {
+    removeFriendId: friendObj.removeFriend.id,
+    currentUserId: friendObj.currentUser.id
+  }
+  return {type: 'FETCHING', payload:
+      fetch(ROOT_URL + '/unfriendship' , {
+      method: 'DELETE',
       headers: {
         "content-type": "application/json",
         'accept': "application/json"
@@ -134,7 +148,7 @@ export function updateUserBioFrontEnd(updatedBio) {
 
 export function updateUserBioBackEnd(updatedBio) {
   return {type: 'FETCHING', payload:
-      fetch('http://localhost:3000/api/v1/users/' + updatedBio.userId, {
+      fetch(ROOT_URL + '/users/' + updatedBio.userId, {
       method: 'PATCH',
       headers: {
         "content-type": "application/json",
@@ -152,7 +166,7 @@ export function addEventFrontEnd(event) {
 export function addEventBackEnd(event) {
   const eventObj = {event: event}
   return ({type: 'FETCHING', payload:
-    fetch('http://localhost:3000/api/v1/events', {
+    fetch(ROOT_URL + '/events', {
       method: 'POST',
       headers: {
         "content-type": "application/json",
@@ -170,7 +184,7 @@ export function removeEventFrontEnd(event) {
 export function removeEventBackEnd(event) {
   const eventObj = {id: event.id}
   return ({type: 'FETCHING', payload:
-    fetch('http://localhost:3000/api/v1/events/' + event.id, {
+    fetch(ROOT_URL + '/events/' + event.id, {
       method: 'DELETE',
       headers: {
         "content-type": "application/json",
@@ -188,7 +202,7 @@ export function submitCommentFrontEnd(commentObj) {
 export function submitCommentBackEnd(commentObj) {
   const comment = {comment: commentObj}
   return ({type: 'FETCHING', payload:
-    fetch('http://localhost:3000/api/v1/comments', {
+    fetch(ROOT_URL + '/comments', {
       method: 'POST',
       headers: {
         "content-type": "application/json",

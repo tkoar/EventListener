@@ -46,10 +46,29 @@
   scroll-behavior: smooth;
 }
 
+@keyframes spin {
+  from {transform:rotate(0deg);}
+  to {transform:rotate(360deg);}
+}
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.center {
+  align-self: center;
+}
+
+.loader {
+  border: 1vw solid #383F51;
+  border-top: 1vw solid #E0E1E2;
+  border-radius: 50%;
+  width: 14vw;
+  height: 14vw;
+  margin: 3.5vw;
+  animation: spin 2.5s linear infinite;
 }
 
 .list-padding {

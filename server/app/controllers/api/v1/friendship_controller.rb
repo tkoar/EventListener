@@ -9,6 +9,11 @@ module Api
         added_user.friends << current_user unless added_user.friends.include?(current_user)
       end
 
+      def destroy
+        fship = Friendship.find_by(friend_id: params[:removeFriendId])
+        fship.destroy
+      end
+
     end
   end
 end

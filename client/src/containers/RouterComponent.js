@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import LoginComponent from '../components/facebooklogin';
 import NavBar from './NavBar'
-import { Switch, Route, BrowserRouter, Redirect, withRouter } from 'react-router-dom'
+import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import Auth from '../components/Auth/AuthAdapter'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
@@ -9,7 +9,7 @@ import { bindActionCreators } from 'redux'
 import * as actions from '../actions'
 const {fetchEvents, allUsers, currentUser} = actions
 
-class RouterComponent extends React.Component {
+class RouterComponent extends Component {
 
   constructor() {
     super()

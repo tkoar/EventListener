@@ -1,10 +1,6 @@
 import React, { Component } from 'react'
-import { Switch, Route, BrowserRouter, Redirect } from 'react-router-dom'
-import LoginComponent from './components/facebooklogin';
+import { BrowserRouter } from 'react-router-dom'
 import RouterComponent from './containers/RouterComponent'
-import NavBar from './containers/NavBar'
-import Auth from './components/Auth/AuthAdapter'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actions from './actions'
